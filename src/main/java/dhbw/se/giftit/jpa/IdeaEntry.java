@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Viktoria
+ * @author Viktoria Swidersky
  */
 public class IdeaEntry implements Serializable {
   
