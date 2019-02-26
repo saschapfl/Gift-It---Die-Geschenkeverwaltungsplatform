@@ -29,30 +29,33 @@ public class RoomEntry implements Serializable {
     private Date deadlineCollection;
     private Date deadlineRating;
     private int budget;
-    private User purchaser;
+    private UserEntry purchaser;
     
-    @ManyToMany
-    private List<User> users;
+    @ManyToMany(mappedBy = "raueme")
+    private List<UserEntry> users;
     
     @OneToMany
-    private List<Idea> ideas;
+    private List<IdeaEntry> ideas;
     
+    //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public RoomEntry(){
         
     }
     
-    public RoomEntry(Date deadlineCollection, Date deadlineRating, int budget, User purchaser, List<User> users){
+    public RoomEntry(Date deadlineCollection, Date deadlineRating, int budget, UserEntry purchaser, List<UserEntry> users){
         this.deadlineCollection = deadlineCollection;
         this.deadlineRating = deadlineRating;
         this.budget = budget;
         this.purchaser = purchaser;
         this.users = users;
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Getter und Setter">
     public Long getId() {
         return id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -81,30 +84,32 @@ public class RoomEntry implements Serializable {
         this.budget = budget;
     }
     
-    public User getPurchaser(){
+    public UserEntry getPurchaser(){
         return purchaser;
     }
     
-    public void setPurchaser(User purchaser){
+    public void setPurchaser(UserEntry purchaser){
         this.purchaser = purchaser;
     }
     
-    public List<User> getUsers(){
+    public List<UserEntry> getUsers(){
         return users;
     }
     
-    public void setUsers(List<User> users){
+    public void setUsers(List<UserEntry> users){
         this.users = users;
     }
     
-    public List<Idea> getIdeas(){
+    public List<IdeaEntry> getIdeas(){
         return ideas;
     }
     
-    public void setIdeas(List<Idea> ideas){
+    public void setIdeas(List<IdeaEntry> ideas){
         this.ideas = ideas;
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Auto-Generierter Kram">
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -117,5 +122,6 @@ public class RoomEntry implements Serializable {
         }
         return true;
     }
+//</editor-fold>
     
 }
