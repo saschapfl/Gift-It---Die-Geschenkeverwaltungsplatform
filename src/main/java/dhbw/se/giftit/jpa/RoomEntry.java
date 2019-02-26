@@ -31,7 +31,7 @@ public class RoomEntry implements Serializable {
     private int budget;
     private UserEntry purchaser;
     
-    @ManyToMany(mappedBy = "raueme")
+    @ManyToMany(mappedBy = "raeume")
     private List<UserEntry> users;
     
     @OneToMany
