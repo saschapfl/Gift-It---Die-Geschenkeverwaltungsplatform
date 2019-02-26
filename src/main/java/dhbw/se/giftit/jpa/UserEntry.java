@@ -42,7 +42,7 @@ public class UserEntry implements Serializable {
     private final Password password = new Password();
     
     @ManyToOne 
-    List<RoomEntry> benutzer = new ArrayList<>();
+    List<RoomEntry> raeume = new ArrayList<>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public UserEntry() {
@@ -64,13 +64,13 @@ public class UserEntry implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    public List<RoomEntry> getBenutzer() {
-        return benutzer;
+
+    public List<RoomEntry> getRaeume() {
+        return raeume;
     }
-    
-    public void setBenutzer(List<RoomEntry> benutzer) {
-        this.benutzer = benutzer;
+
+    public void setRaeume(List<RoomEntry> raeume) {
+        this.raeume = raeume;
     }
     //</editor-fold>
 
