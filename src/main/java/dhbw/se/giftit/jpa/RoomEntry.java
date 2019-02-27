@@ -26,6 +26,7 @@ public class RoomEntry implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    private String name;
     private Date deadlineCollection;
     private Date deadlineRating;
     private int budget;
@@ -107,6 +108,16 @@ public class RoomEntry implements Serializable {
     public void setIdeas(List<IdeaEntry> ideas){
         this.ideas = ideas;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Auto-Generierter Kram">
