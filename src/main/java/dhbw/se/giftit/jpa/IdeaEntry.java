@@ -21,10 +21,10 @@ public class IdeaEntry implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private int like;
-    private int dislike;
+    private String like;
+    private String dislike;
     private String name;
-    private int price;
+    private String price;
     private String description;
     private String link;
     private String picture;
@@ -37,7 +37,7 @@ public class IdeaEntry implements Serializable {
     }
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     
-    public IdeaEntry ( int like, int dislike, String name, int price, String description, String link, String picture){
+    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture){
         this.like = like;
         this.dislike = dislike;
         this.name = name;
@@ -57,19 +57,19 @@ public class IdeaEntry implements Serializable {
         this.id = id;
     }
     
-    public int getLike() {
+    public String getLike() {
         return like;
     }
     
-    public void setLike(int like) {
+    public void setLike(String like) {
         this.like = like;
     }
     
-    public int getDislike() {
+    public String getDislike() {
         return dislike;
     }
     
-    public void setDislike(int dislike) {
+    public void setDislike(String dislike) {
         this.dislike = dislike;
     }
     
@@ -81,11 +81,11 @@ public class IdeaEntry implements Serializable {
         this.name = name;
     }
     
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
     
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
     
