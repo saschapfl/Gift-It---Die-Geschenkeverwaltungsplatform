@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "User_TABLE")
+@Table(name = "USER_TABLE")
 public class UserEntry implements Serializable {
     
     @Id
@@ -73,7 +73,6 @@ public class UserEntry implements Serializable {
         this.raeume = raeume;
     }
     //</editor-fold>
-
     
     //<editor-fold defaultstate="collapsed" desc="Password Verarbeitung">
     public Password getPassword() {
