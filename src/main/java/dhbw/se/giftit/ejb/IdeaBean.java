@@ -35,7 +35,7 @@ public class IdeaBean {
         return em.find(IdeaEntry.class, id);
     }
     
-    public IdeaEntry deleteWaste(long id) {
+    public IdeaEntry deleteIdea(long id) {
         IdeaEntry idea = em.find(IdeaEntry.class, id);
         
         if (idea != null) {
