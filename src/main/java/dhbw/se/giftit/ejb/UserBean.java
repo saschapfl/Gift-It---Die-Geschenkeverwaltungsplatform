@@ -7,7 +7,8 @@ package dhbw.se.giftit.ejb;
 
 import dhbw.se.giftit.exc.UserExsists;
 import dhbw.se.giftit.jpa.UserEntry;
-import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +22,9 @@ public class UserBean {
     
     @PersistenceContext
     EntityManager entityManager;
+    
+    @Resource
+    EJBContext ctx;
     
     // Liefert aktuelles User Objekt anhand von eindeutigem Usernamen zurück
     public UserEntry getUserByUname(String uname) {       
@@ -54,12 +58,15 @@ public class UserBean {
         }
     }
     
+    // User objekt updaten
     public void updateUserByObject(UserEntry user) {
         entityManager.merge(user);
     }
     
-    // Alle User anzeigen
-    public 
+    // aktuellen User holen
+    public UserEntry getUser() {
+        return this.entityManager.find(UserEntry.class, this.ctx.getCallerPrincipal().getName());
+    }
 }
 
 
