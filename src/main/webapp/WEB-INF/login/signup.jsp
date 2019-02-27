@@ -13,9 +13,8 @@
 <c:set var="base_url" value="<%=request.getContextPath()%>" />
 
 <template:base>
-    <%-- Registrierungsformular --%>
-    <jsp:attribute name="RFormular">
-        <div class="formular">
+    <jsp:attribute name="content">
+        <div class="container">
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
@@ -23,7 +22,7 @@
                         Benutzername:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
+                    <div>
                         <input type="text" name="bname" value="${Rforms.values["bname"][0]}" required>
                     </div>
 
@@ -31,7 +30,7 @@
                         Passwort:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
+                    <div>
                         <input type="password" name="password1" value="${Rforms.values["password1"][0]}"required>
                     </div>
 
@@ -39,12 +38,12 @@
                         Passwort wiederholen:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
+                    <div>
                         <input type="password" name="password2" value="${Rforms.values["password2"][0]}" required>
                     </div>
 
                     <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
+                    <div >
                         <button class="icon-pencil" type="submit">
                             Registrieren
                         </button>

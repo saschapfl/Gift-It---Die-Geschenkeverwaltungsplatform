@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 public class SignUpServlet extends HttpServlet {
     
     @EJB 
-    ValidationBean validationBean;
+    ValidationBean valBean;
     
     @EJB
     UserBean userBean;
@@ -59,9 +59,9 @@ public class SignUpServlet extends HttpServlet {
         
         // Eingaben prüfen
         UserEntry user = new UserEntry(uname, password1);
-        List<String> errors = this.validationBean.validate(user);
+        List<String> errors = this.valBean.validate(user);
         
-        this.validationBean.validate(user.getPassword(), errors);
+        this.valBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
             errors.add("Überprüfe die Eingabe beider Passwörter!");
