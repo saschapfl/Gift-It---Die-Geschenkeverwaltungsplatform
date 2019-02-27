@@ -30,14 +30,14 @@ public class RoomBean {
     }
     
     public List<RoomEntry> findAllRooms() {
-        return em.createQuery("SELECT r FROM Room r ORDER BY r.id DESC").getResultList();
+        return em.createQuery("SELECT r FROM RoomEntry r ORDER BY r.id DESC").getResultList();
     }
     
     public RoomEntry findRoom(long id) {
         return em.find(RoomEntry.class, id);
     }
     
-    public RoomEntry deleteWaste(long id) {
+    public RoomEntry deleteRoom(long id) {
         RoomEntry room = em.find(RoomEntry.class, id);
         
         if (room != null) {

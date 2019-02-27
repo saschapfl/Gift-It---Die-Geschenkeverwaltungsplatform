@@ -59,7 +59,7 @@ public class RoomViewServlet extends HttpServlet {
                  response.sendRedirect(request.getContextPath() + "/IdeaViewServlet");
                 break;
             case "deleteRoom":
-                roomBean.deleteWaste(0);
+                roomBean.deleteRoom(Long.parseLong(request.getParameter("id")));
                 break;
             default:
                 break;

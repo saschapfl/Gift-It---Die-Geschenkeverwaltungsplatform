@@ -30,7 +30,6 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form action="delete_room" method="post" class="stacked">
                 <div class="column">
                     <c:choose>
                         <c:when test = "${empty entries}">
@@ -41,15 +40,14 @@
                         <c:otherwise>
                             <ul>
                                 <c:forEach items = "${entries}" var = "entry">
-                                    <a href ="<c:url value = "/RoomView/${entry.id}" />">
-                                            <li>${entry.name}</li>
-                                    </a>
+                                    <li>
+                                        <a href ="<c:url value = "/RoomView/?id = ${entry.id}" />">${entry.name}</a>
+                                    </li>
                                 </c:forEach>
                             </ul> 
                         </c:otherwise>
                     </c:choose>
                 </div>
-            </form>
         </div>
     </jsp:attribute>
 </template:base>
