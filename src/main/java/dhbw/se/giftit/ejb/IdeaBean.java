@@ -20,8 +20,9 @@ public class IdeaBean {
     EntityManager em;
     
     
+    
     //<editor-fold defaultstate="collapsed" desc="Standardmethoden">
-    public IdeaEntry createNewIdea(int like, int dislike, String name, int price, String description, String link, String picture){
+    public IdeaEntry createNewIdea(String like, String dislike, String name, String price, String description, String link, String picture){
         IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture);
         em.persist(idea);
         return em.merge(idea);
@@ -49,4 +50,5 @@ public class IdeaBean {
         return em.merge(idea);
     }
 //</editor-fold>
+
 }

@@ -5,8 +5,10 @@
  */
 package dhbw.se.giftit.web;
 
+import dhbw.se.giftit.ejb.IdeaBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CreateIdeaServlet", urlPatterns = {"/CreateIdeaServlet"})
 public class CreateIdeaServlet extends HttpServlet {
 
+    @EJB
+    IdeaBean ideaBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +35,14 @@ public class CreateIdeaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateIdeaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateIdeaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String link = request.getParameter("link");
+        String picture = request.getParameter("picture");
+        String price = request.getParameter("price");
+        String like = request.getParameter("like");
+        String dislike = request.getParameter("dislike");
+        this.ideaBean.createNewIdea(like, dislike, name, price, description, link, picture);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
