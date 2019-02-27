@@ -19,7 +19,7 @@ public class IdeaEntry implements Serializable {
   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idea;
+    private Long id;
     
     private int like;
     private int dislike;
@@ -49,12 +49,12 @@ public class IdeaEntry implements Serializable {
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="getter and setter">
-    public Long getIdea() {
-        return idea;
+    public Long getId() {
+        return id;
     }
     
-    public void setIdea(Long idea) {
-        this.idea = idea;
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public int getLike() {
