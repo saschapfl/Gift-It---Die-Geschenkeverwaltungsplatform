@@ -40,6 +40,7 @@ public class UserBean {
         }
         else {
             UserEntry User = new UserEntry(uname, password);
+            User.addToGroup("giftit-secure");
             entityManager.persist(User);
         }
     }
@@ -87,6 +88,8 @@ public class UserBean {
         return allUsers;
     }
     //</editor-fold>
+    
+    
 }
 
 

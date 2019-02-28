@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viktoria
  */
-@WebServlet(name = "CreateIdeaServlet", urlPatterns = {"/CreateIdeaServlet"})
+@WebServlet(name = "CreateIdeaServlet", urlPatterns = {"/secure/CreateIdeaServlet"})
 public class CreateIdeaServlet extends HttpServlet {
 
     @EJB

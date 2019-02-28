@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author spfli
  */
-@WebServlet(name = "RoomOverviewServlet", urlPatterns = {"/RoomOverview"})
+@WebServlet(name = "RoomOverviewServlet", urlPatterns = {"/secure/RoomOverview"})
 public class RoomOverviewServlet extends HttpServlet {
 
    @EJB
