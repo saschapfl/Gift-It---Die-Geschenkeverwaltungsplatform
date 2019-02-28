@@ -79,8 +79,7 @@ public class SignUpServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
-            request.login(uname, password1);
-            response.sendRedirect(request.getContextPath() +  "/RoomOverview/");
+            response.sendRedirect(request.getContextPath() +  "/secure/RoomOverview");
         } else {
             // Fehler: Formuler erneut anzeigen
             FormData formValues = new FormData();

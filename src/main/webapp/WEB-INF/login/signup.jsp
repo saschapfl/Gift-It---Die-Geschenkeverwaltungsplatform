@@ -19,24 +19,21 @@
                 <div class="column">
                     <%-- Eingabefelder --%>
                     <label for="bname">
-                        Benutzername:
-                        <span class="required">*</span>
+                        Benutzername:*
                     </label>
                     <div>
                         <input type="text" name="bname" value="${Rforms.values["bname"][0]}" required>
                     </div>
 
                     <label for="password1">
-                        Passwort:
-                        <span class="required">*</span>
+                        Passwort:*
                     </label>
                     <div>
                         <input type="password" name="password1" value="${Rforms.values["password1"][0]}"required>
                     </div>
 
                     <label for="password2">
-                        Passwort wiederholen:
-                        <span class="required">*</span>
+                        Passwort wiederholen:*
                     </label>
                     <div>
                         <input type="password" name="password2" value="${Rforms.values["password2"][0]}" required>

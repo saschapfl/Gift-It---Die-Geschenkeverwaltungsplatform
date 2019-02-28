@@ -23,7 +23,7 @@ public class IndexServlet extends HttpServlet {
     throws IOException, ServletException {
         
         // Auf das Servlet SignUp wechseln
-        response.sendRedirect(request.getContextPath() + "/signup/");
+        response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");
     }
 
 }

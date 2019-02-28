@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author spfli
  */
-@WebServlet(name = "RoomOverviewServlet", urlPatterns = {"/RoomOverview"})
+@WebServlet(name = "RoomOverviewServlet", urlPatterns = {"/secure/RoomOverview"})
 public class RoomOverviewServlet extends HttpServlet {
 
     

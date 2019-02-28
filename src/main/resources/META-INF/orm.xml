@@ -7,7 +7,7 @@
     <persistence-unit-metadata>
         <persistence-unit-defaults>
             <!-- Dieser Wert muss für jede Anwendung ein anderer sein! -->
-            <schema>GIFT-IT!</schema>
+            <schema>GIFT-IT</schema>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
 

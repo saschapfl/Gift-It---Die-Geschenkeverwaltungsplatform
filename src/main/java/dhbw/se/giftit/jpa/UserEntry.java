@@ -9,9 +9,12 @@ import dhbw.se.giftit.web.HashGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -39,6 +42,14 @@ public class UserEntry implements Serializable {
     }    
     @Transient
     private final Password password = new Password();
+    
+    @ElementCollection
+    @CollectionTable(
+            name = "USER_GROUP",
+            joinColumns = @JoinColumn(name = "USERNAME")
+    )
+    @Column(name = "GROUPNAME")
+    List<String> groups = new ArrayList<>();
     
     @ManyToMany
     List<RoomEntry> raeume = new ArrayList<>();
@@ -71,6 +82,23 @@ public class UserEntry implements Serializable {
     public void setRaeume(List<RoomEntry> raeume) {
         this.raeume = raeume;
     }
+
+    public List<String> getGroups() {
+    List<String> groupsCopy = new ArrayList<>();
+
+    this.groups.forEach((groupname) -> {
+        groupsCopy.add(groupname);
+    });
+
+    return groupsCopy;
+    }
+
+    public void addToGroup(String groupname) {
+        if (!this.groups.contains(groupname)) {
+            this.groups.add(groupname);
+        }
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Password Verarbeitung">
