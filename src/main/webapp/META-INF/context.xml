@@ -8,11 +8,11 @@
         <Realm
             className      = "org.apache.catalina.realm.DataSourceRealm"
             dataSourceName = "Default-Database-Unmanaged"
-            userTable      = "gift-it.user_table"
+            userTable      = "giftit.user_table"
             userNameCol    = "username"
             userCredCol    = "password_hash"
             
-            userRoleTable  = "gift-it.user_table"
+            userRoleTable  = "giftit.user_group"
             roleNameCol    = "groupname"
         >
             <CredentialHandler

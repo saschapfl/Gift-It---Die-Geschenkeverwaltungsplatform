@@ -36,24 +36,29 @@
                         Raumname:
                         <span class="required">*</span>
                     </label>
+                    <div>
                     <input type="text" name="j_roomname">
-
+                    </div>
                     <label for="j_deadlineCollection">
                         Ideensammlungsdeadline:
                         <span class="required">*</span>
                     </label>
+                    <div>
                     <input type="text" name="j_deadlineCollection">
+                    </div>
                     <label for="j_deadlineRating">
                         Ideenbewertungsdeadline:
                         <span class="required">*</span>
                     </label>
+                    <div>
                     <input type="text" name="j_deadlineRating">
-
+                    </div>
                     <label for="j_participant">
                         Teilnehmer hinzufügen:
                     </label>
+                    <div>
                         <input type ="text" name ="j_participant">
-                    
+                    </div>
                     <button type = "submit">
                         Raum speichern
                     </button>
