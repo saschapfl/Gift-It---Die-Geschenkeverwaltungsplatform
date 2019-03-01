@@ -21,7 +21,7 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/RoomOverview/"/>">Zurück zur Übersicht</a>
+            <a href="<c:url value="/secure/RoomOverview"/>">Zurück zur Übersicht</a>
         </div>
         <div class ="menuitem">
             <p>Räumchen wär ein Träumchen, ${user_name}</p>
