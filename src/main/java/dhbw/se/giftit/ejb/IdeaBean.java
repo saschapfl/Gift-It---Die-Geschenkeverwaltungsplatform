@@ -7,6 +7,7 @@ package dhbw.se.giftit.ejb;
 
 import dhbw.se.giftit.jpa.IdeaEntry;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,18 +15,17 @@ import javax.persistence.PersistenceContext;
  *
  * @author Viktoria
  */
+@Stateless
 public class IdeaBean {
      //Referenz auf Persistence Klasse holen
     @PersistenceContext
     EntityManager em;
-    
+
     
     
     //<editor-fold defaultstate="collapsed" desc="Standardmethoden">
-    public IdeaEntry createNewIdea(String like, String dislike, String name, String price, String description, String link, String picture){
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture);
+    public void CreateNewIdea(IdeaEntry idea){
         em.persist(idea);
-        return em.merge(idea);
     }
     
     public List<IdeaEntry> findAllIdeas() {
