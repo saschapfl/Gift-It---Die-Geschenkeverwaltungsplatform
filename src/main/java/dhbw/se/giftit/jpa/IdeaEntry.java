@@ -6,15 +6,19 @@
 package dhbw.se.giftit.jpa;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Viktoria Swidersky
  */
+@Entity
+@Table(name = "Idea_Table")
 public class IdeaEntry implements Serializable {
   
     @Id
@@ -45,6 +49,7 @@ public class IdeaEntry implements Serializable {
         this.description = description;
         this.link = link;
         this.picture = picture;
+
     }
 //</editor-fold>
 
