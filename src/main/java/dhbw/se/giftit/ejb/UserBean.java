@@ -34,14 +34,13 @@ public class UserBean {
     
     //<editor-fold defaultstate="collapsed" desc="registrieren">
     // aktuellen User registrieren
-    public void registerUser(String uname, String password) throws UserExsists {
-        if(entityManager.find(UserEntry.class, uname) != null) {
+    public void registerUser(UserEntry user) throws UserExsists {
+        if(entityManager.find(UserEntry.class, user.getUsername()) != null) {
             throw new UserExsists("Der Benutzer ist bereits vorhanden!");
         }
         else {
-            UserEntry User = new UserEntry(uname, password);
-            User.addToGroup("giftit-secure");
-            entityManager.persist(User);
+            user.addToGroup("giftit-secure");
+            entityManager.persist(user);
         }
     }
     //</editor-fold>

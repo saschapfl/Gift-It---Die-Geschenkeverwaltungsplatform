@@ -70,7 +70,7 @@ public class SignUpServlet extends HttpServlet {
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
             try {
-                this.userBean.registerUser(uname, password1);
+                this.userBean.registerUser(user);
             } catch (UserExsists ue) {
                 errors.add(ue.getMessage());
             }
