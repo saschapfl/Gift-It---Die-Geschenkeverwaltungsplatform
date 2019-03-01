@@ -5,13 +5,33 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<%@taglib tagdir="/WEB-INF/tags/templates" prefix="template"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
+<c:set var="base_url" value="<%=request.getContextPath()%>" />
+
+<template:base>
+    <jsp:attribute name="title">
+        Raumansicht
+    </jsp:attribute>
+        
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="<c:url value="/css/roomview.css"/>" />
+    </jsp:attribute>
+        
+   <jsp:attribute name="menu">
+       <form action="${pageContext.request.contextPath}/RoomView" method="post">
+        <button type="submit" name="button" value="createIdea">Idee erstellen</button>
+        <button type="submit" name="button" value="deleteIdea">Idee löschen</button>
+        <button type="submit" name="button" value="deleteRoom">Raum löschen</button>
+       </form>
+    </jsp:attribute>
+    
+     <jsp:attribute name="content">
+         <div class="container">
+             //Idee dynamisch erstellen
+         </div>
+</template:base>

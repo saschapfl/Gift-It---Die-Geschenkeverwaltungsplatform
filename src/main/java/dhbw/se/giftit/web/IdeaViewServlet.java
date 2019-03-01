@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viktoria
  */
-@WebServlet(name = "IdeaViewServlet", urlPatterns = {"/IdeaViewServlet"})
+@WebServlet(name = "IdeaViewServlet", urlPatterns = {"/sercure/IdeaView"})
 public class IdeaViewServlet extends HttpServlet {
 
  
@@ -50,15 +50,5 @@ public class IdeaViewServlet extends HttpServlet {
             throws ServletException, IOException {
    
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
+
