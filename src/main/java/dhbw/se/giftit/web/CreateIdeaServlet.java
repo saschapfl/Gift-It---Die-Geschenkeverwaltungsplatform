@@ -6,82 +6,74 @@
 package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
+import dhbw.se.giftit.ejb.ValidationBean;
+import dhbw.se.giftit.jpa.IdeaEntry;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Viktoria
  */
-@WebServlet(name = "CreateIdeaServlet", urlPatterns = {"/secure/CreateIdeaServlet"})
+@WebServlet(name = "CreateIdeaServlet", urlPatterns = {"/secure/CreateIdea"})
 public class CreateIdeaServlet extends HttpServlet {
 
     @EJB
     IdeaBean ideaBean;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    
+    @EJB
+    ValidationBean validationBean;
+            
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // Anfrage an dazugerhörige JSP weiterleiten
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/CreateIdea.jsp");
+        dispatcher.forward(request, response);
+        
+        // Alte Formulardaten aus der Session entfernen
+        HttpSession session = request.getSession();
+        session.removeAttribute("Rform");  
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String link = request.getParameter("link");
         String picture = request.getParameter("picture");
         String price = request.getParameter("price");
-        String like = request.getParameter("like");
-        String dislike = request.getParameter("dislike");
-        this.ideaBean.createNewIdea(like, dislike, name, price, description, link, picture);
+        String like = "0";
+        String dislike = "0";
+        
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture);
+        List<String> errors = this.validationBean.validate(idea);
+         
+        if (errors.isEmpty()) {
+            // Keine Fehler: Raumansicht aufrufen
+            this.ideaBean.CreateNewIdea(idea);
+            response.sendRedirect(request.getContextPath() +  "/secure/RoomView");
+        } else {
+            // Fehler: Formuler erneut anzeigen
+            FormData formValues = new FormData();
+            formValues.setValues(request.getParameterMap());
+            //formValues.setErrors(errors);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("Rforms", formValues);
+            
+            response.sendRedirect(request.getContextPath() + "/secure/CreateIdea");
+        }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
