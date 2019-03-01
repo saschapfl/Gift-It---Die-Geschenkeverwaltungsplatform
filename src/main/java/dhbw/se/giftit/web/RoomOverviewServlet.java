@@ -46,7 +46,9 @@ public class RoomOverviewServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.setAttribute("user_name", user.getUsername());
-        session.setAttribute("entries", raeume);
+        request.setAttribute("entries", raeume);
+        CreateRoomServlet.allParticipants.clear();
+        CreateRoomServlet.error = "";
         request.getRequestDispatcher("/WEB-INF/Room/RoomOverview.jsp").forward(request, response);
         
     }

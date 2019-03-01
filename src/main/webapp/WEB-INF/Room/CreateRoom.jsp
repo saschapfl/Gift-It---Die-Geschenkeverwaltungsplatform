@@ -30,38 +30,50 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form action="create_room" method="post" class="stacked">
+            <form method="post" class="stacked">
                 <div class="column">
-                    <label for="j_roomname">
+                    <label for="roomname">
                         Raumname:
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="text" name="j_roomname">
+                    <input type="text" name="roomname">
                     </div>
-                    <label for="j_deadlineCollection">
+                    <label for="deadlineCollection">
                         Ideensammlungsdeadline:
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="text" name="j_deadlineCollection">
+                    <input type="date" name="deadlineCollection">
                     </div>
-                    <label for="j_deadlineRating">
+                    <label for="deadlineRating">
                         Ideenbewertungsdeadline:
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="text" name="j_deadlineRating">
+                    <input type="date" name="deadlineRating">
                     </div>
-                    <label for="j_participant">
+                    <label for="participant">
                         Teilnehmer hinzufügen:
                     </label>
                     <div>
-                        <input type ="text" name ="j_participant">
+                        <input type ="text" name ="participant">
+                        <button type ="submit" name="button" value="add_participant">hinzufügen</button>
+                        <button type ="submit" name="button" value="remove_participant">löschen</button>
                     </div>
-                    <button type = "submit">
+                    <div>
+                        <ul>
+                            <c:forEach items = "${participants}" var = "part">
+                                    <li>${part.username}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <button type = "submit" name="button" value="add_room">
                         Raum speichern
                     </button>
+                    <div>
+                        <p>${error}</p>
+                    </div>
                 </div>
             </form>
         </div>

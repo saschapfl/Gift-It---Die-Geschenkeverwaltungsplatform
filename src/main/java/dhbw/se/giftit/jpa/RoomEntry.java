@@ -6,6 +6,7 @@
 package dhbw.se.giftit.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import javax.persistence.OneToMany;
 public class RoomEntry implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     
     private String name;
@@ -32,18 +33,19 @@ public class RoomEntry implements Serializable {
     private int budget;
     private UserEntry purchaser;
     
-    @ManyToMany(mappedBy = "raeume")
-    private List<UserEntry> users;
+    @ManyToMany
+    private List<UserEntry> users = new ArrayList<UserEntry>();
     
     @OneToMany
-    private List<IdeaEntry> ideas;
+    private List<IdeaEntry> ideas = new ArrayList<IdeaEntry>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public RoomEntry(){
         
     }
     
-    public RoomEntry(Date deadlineCollection, Date deadlineRating, int budget, UserEntry purchaser, List<UserEntry> users){
+    public RoomEntry(String name, Date deadlineCollection, Date deadlineRating, int budget, UserEntry purchaser, List<UserEntry> users){
+        this.name = name;
         this.deadlineCollection = deadlineCollection;
         this.deadlineRating = deadlineRating;
         this.budget = budget;
@@ -134,5 +136,9 @@ public class RoomEntry implements Serializable {
         return true;
     }
 //</editor-fold>
+    
+    public void addUserToRoom(UserEntry user){
+        this.users.add(user);
+    }
     
 }

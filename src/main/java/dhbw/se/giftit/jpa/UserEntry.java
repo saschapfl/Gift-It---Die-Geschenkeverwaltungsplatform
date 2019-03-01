@@ -51,7 +51,7 @@ public class UserEntry implements Serializable {
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "users")
     List<RoomEntry> raeume = new ArrayList<>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">

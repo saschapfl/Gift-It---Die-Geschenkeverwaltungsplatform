@@ -23,8 +23,7 @@ public class RoomBean {
     EntityManager em;
     
     //<editor-fold defaultstate="collapsed" desc="Standardmethoden">
-    public RoomEntry createNewRoom(Date deadlineCollection, Date deadlineRating, int budget, UserEntry purchaser, List<UserEntry> users) {
-        RoomEntry room = new RoomEntry(deadlineCollection, deadlineRating, budget, purchaser, users);
+    public RoomEntry createNewRoom(RoomEntry room) {
         em.persist(room);
         return em.merge(room);
     }
