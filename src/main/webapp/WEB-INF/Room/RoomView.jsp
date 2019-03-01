@@ -20,9 +20,8 @@
     </jsp:attribute>
         
    <jsp:attribute name="menu">
-       <form action="${pageContext.request.contextPath}/RoomView" method="post">
+       <form method="post">
         <button type="submit" name="button" value="createIdea">Idee erstellen</button>
-        <button type="submit" name="button" value="deleteIdea">Idee löschen</button>
         <button type="submit" name="button" value="deleteRoom">Raum löschen</button>
        </form>
     </jsp:attribute>
@@ -31,4 +30,5 @@
          <div class="container">
              //Idee dynamisch erstellen
          </div>
+     </jsp:attribute>
 </template:base>
