@@ -9,7 +9,6 @@ import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.RoomEntry;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,6 +27,7 @@ public class RoomOverviewServlet extends HttpServlet {
 
    @EJB
    UserBean userbean;
+   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,12 +43,12 @@ public class RoomOverviewServlet extends HttpServlet {
         
         UserEntry user = userbean.getUser();
         List<RoomEntry> raeume = user.getRaeume();
-        
         HttpSession session = request.getSession();
         session.setAttribute("user_name", user.getUsername());
         request.setAttribute("entries", raeume);
         CreateRoomServlet.allParticipants.clear();
         CreateRoomServlet.error = "";
+        CreateRoomServlet.form_data.clear();
         request.getRequestDispatcher("/WEB-INF/Room/RoomOverview.jsp").forward(request, response);
         
     }

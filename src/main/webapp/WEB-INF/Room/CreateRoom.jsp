@@ -37,21 +37,21 @@
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="text" name="roomname">
+                    <input type="text" name="roomname"  value = "${form_data[0]}" required>
                     </div>
                     <label for="deadlineCollection">
                         Ideensammlungsdeadline:
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="date" name="deadlineCollection">
+                    <input type="date" name="deadlineCollection" value = "${form_data[1]}">
                     </div>
                     <label for="deadlineRating">
                         Ideenbewertungsdeadline:
                         <span class="required">*</span>
                     </label>
                     <div>
-                    <input type="date" name="deadlineRating">
+                    <input type="date" name="deadlineRating" value = "${form_data[2]}">
                     </div>
                     <label for="participant">
                         Teilnehmer hinzufügen:

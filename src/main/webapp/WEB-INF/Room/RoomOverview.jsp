@@ -41,7 +41,7 @@
                             <ul>
                                 <c:forEach items = "${entries}" var = "entry">
                                     <li>
-                                        <a href ="<c:url value = "secure/RoomView?id=${entry.id}"/>">${entry.name}</a>
+                                        <a href ="<c:url value = "RoomView?id=${entry.id}"/>">${entry.name}</a>
                                     </li>
                                 </c:forEach>
                             </ul> 

@@ -15,7 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -43,6 +45,7 @@ public class CreateRoomServlet extends HttpServlet {
 
     public static List<UserEntry> allParticipants = new ArrayList<UserEntry>();
     public static String error;
+    public static List<String> form_data = new ArrayList<String>();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,6 +53,7 @@ public class CreateRoomServlet extends HttpServlet {
          // Anfrage an dazugerhörige JSP weiterleiten
         request.setAttribute("participants", allParticipants);
         request.setAttribute("error", error);
+        request.setAttribute("form_data", form_data);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Room/CreateRoom.jsp");
         dispatcher.forward(request, response);
         
@@ -59,9 +63,11 @@ public class CreateRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
-        //Grundsätzliches
+        //Grundsätzliches (gedrückten button abfragen und Formulardaten speichern)
        String buttonname = request.getParameter("button");
-       
+       form_data.add(request.getParameter("roomname"));
+       form_data.add(request.getParameter("deadlineCollection"));
+       form_data.add(request.getParameter("deadlineRating"));
        
        //<editor-fold defaultstate="collapsed" desc="Teilnehmer adden">
        if(buttonname.equals("add_participant")){
@@ -98,7 +104,6 @@ public class CreateRoomServlet extends HttpServlet {
                    }
                }
            }
-          
            response.sendRedirect(request.getContextPath() + "/secure/createRoom");
        }
 //</editor-fold>
@@ -121,27 +126,44 @@ public class CreateRoomServlet extends HttpServlet {
        
        //<editor-fold defaultstate="collapsed" desc="Raum erstellen">
        else{
-           String date = request.getParameter("deadlineCollection");
-           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-           try{
-               Date deadline1 = format.parse(date);
-               date = request.getParameter("deadlineRating");
-               Date deadline2 = format.parse(date);
-               
-               String name = request.getParameter("roomname");
-               allParticipants.add(0, userbean.getUser());
-               RoomEntry new_room = new RoomEntry(name, deadline1, deadline2, 0, null, allParticipants);
-               roombean.createNewRoom(new_room);
-               allParticipants.clear();
-               error = "";
-               
-               response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");
+           if(request.getParameter("roomname").trim().equals("")){
+               error = "Bitte geben Sie einen Raumnamen ein";
+               response.sendRedirect(request.getContextPath() + "/secure/createRoom");
            }
-           catch(ParseException pe){
-               error = "Bitte geben Sie gültige Deadlines an!";
+           else{
+            String date = request.getParameter("deadlineCollection");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try{
+                Date deadline1 = format.parse(date);
+                date = request.getParameter("deadlineRating");
+                Date deadline2 = format.parse(date);
+                Date now = new Date();
+
+                if(deadline1.compareTo(deadline2) >= 0){
+                    error = "Die Deadline zum Sammeln von Ideen muss vor der Abstimmung stattfinden!";
+                    response.sendRedirect(request.getContextPath() + "/secure/createRoom");
+                }
+                else if(deadline1.compareTo(now) < 0 || deadline2.compareTo(now) < 0){
+                    error = "Bist du etwa ein Zeitreisender? :O";
+                    response.sendRedirect(request.getContextPath() + "/secure/createRoom");
+                }
+                else{
+                 String name = request.getParameter("roomname");
+                 allParticipants.add(0, userbean.getUser());
+                 RoomEntry new_room = new RoomEntry(name, deadline1, deadline2, 0, null, allParticipants);
+                 roombean.createNewRoom(new_room);
+                 allParticipants.clear();
+                 error = "";
+                 form_data.clear();
+                response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");
+               }
+            }
+            catch(ParseException pe){
+                error = "Bitte geben Sie gültige Deadlines an!";
+                response.sendRedirect(request.getContextPath() + "/secure/createRoom");
+            }
+           
            }
-           
-           
        }
 //</editor-fold>
     }
