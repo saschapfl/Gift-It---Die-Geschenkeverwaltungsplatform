@@ -20,12 +20,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/secure/createRoom"/>">Raum erstellen</a>
-        </div>
-        <div class ="menuitem">
-            <p>Herzlich Willkommen, ${user_name}</p>
-        </div>
+            <a class="nav-item nav-link" href="<c:url value="/secure/createRoom"/>">Raum erstellen</a>        
     </jsp:attribute>
 
     <jsp:attribute name="content">

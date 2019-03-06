@@ -20,12 +20,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/secure/RoomOverview"/>">Zurück zur Übersicht</a>
-        </div>
-        <div class ="menuitem">
-            <p>Räumchen wär ein Träumchen, ${user_name}</p>
-        </div>
+            <a class = "nav-item nav-link" href="<c:url value="/secure/RoomOverview"/>">Zurück zur Übersicht</a>    
     </jsp:attribute>
 
     <jsp:attribute name="content">
