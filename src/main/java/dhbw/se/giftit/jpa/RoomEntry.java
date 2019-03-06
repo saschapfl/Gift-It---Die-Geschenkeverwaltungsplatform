@@ -38,7 +38,7 @@ public class RoomEntry implements Serializable {
     @ManyToMany
     private List<UserEntry> users = new ArrayList<UserEntry>();
     
-    @OneToMany(mappedBy = "raum", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     private List<IdeaEntry> ideas = new ArrayList<IdeaEntry>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">

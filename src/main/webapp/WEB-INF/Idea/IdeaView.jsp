@@ -21,6 +21,7 @@
     </jsp:attribute>
     
      <jsp:attribute name="content">
+         <form method ="post">
              <div class="column">
                  <div>
                  <label for="idea_name">
@@ -59,8 +60,9 @@
                     
                     <%-- Button zum Abschicken --%>
                     <div>
-                        <button type="submit" name="button" value="deleteIdea">Löschen</button>
+                        <button type="submit"  name="button" value="deleteIdea">Löschen</button>
                     </div>  
-               </div>
+               </div>                          
+         </form>
  </jsp:attribute>
 </template:base>

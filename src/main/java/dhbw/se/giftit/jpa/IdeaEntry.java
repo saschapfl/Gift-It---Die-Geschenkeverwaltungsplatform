@@ -35,7 +35,7 @@ public class IdeaEntry implements Serializable {
     private String picture;
     
     @ManyToOne
-    private RoomEntry raum = null;
+    private RoomEntry room = null;
             
     public IdeaEntry (){
         
@@ -50,11 +50,14 @@ public class IdeaEntry implements Serializable {
         this.description = description;
         this.link = link;
         this.picture = picture;
-        this.raum = room;
+        this.room = room;
     }
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="getter and setter">
+    public RoomEntry getRoom(){
+        return room;
+    }
     public Long getId() {
         return id;
     }
