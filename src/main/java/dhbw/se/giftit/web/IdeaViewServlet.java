@@ -5,22 +5,29 @@
  */
 package dhbw.se.giftit.web;
 
+import dhbw.se.giftit.ejb.IdeaBean;
+import dhbw.se.giftit.jpa.IdeaEntry;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Viktoria
  */
-@WebServlet(name = "IdeaViewServlet", urlPatterns = {"/sercure/IdeaView"})
+@WebServlet(name = "IdeaViewServlet", urlPatterns = {"/secure/IdeaView"})
 public class IdeaViewServlet extends HttpServlet {
 
+ @EJB
+ IdeaBean ideaBean;
  
+ IdeaEntry idea = new IdeaEntry();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -31,9 +38,23 @@ public class IdeaViewServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+//    @Override
+ @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+      
+        long id = Long.parseLong(request.getParameter("id"));
+        idea = ideaBean.findIdea(id);
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("idea_name", idea.getName());
+        session.setAttribute("price", idea.getPrice());
+        session.setAttribute("link", idea.getLink());
+        session.setAttribute("description", idea.getDescription());
+       // Anfrage an dazugerhörige JSP weiterleiten
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/IdeaView.jsp");
+        dispatcher.forward(request, response);
         
     }
 
@@ -48,7 +69,19 @@ public class IdeaViewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
+        
+        String button = request.getParameter("button");
+      
+        
+        if (!button.equals("deleteIdea")){
+              ideaBean.deleteIdea(Long.parseLong(request.getParameter("id")));
+        } else {
+            //mach nichts
+        }
     }
-}
+    
+    }
+
+
+
 

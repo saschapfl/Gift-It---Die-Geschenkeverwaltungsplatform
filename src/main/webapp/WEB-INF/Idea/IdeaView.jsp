@@ -11,27 +11,56 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
-<c:set var="base_url" value="<%=request.getContextPath()%>" />
-
 <template:base>
     <jsp:attribute name="title">
-        Raumansicht
+        Idee
     </jsp:attribute>
         
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/roomview.css"/>" />
-    </jsp:attribute>
-        
-   <jsp:attribute name="menu">
-       <form action="${pageContext.request.contextPath}/RoomView" method="post">
-        <button type="submit" name="button" value="createIdea">Idee erstellen</button>
-        <button type="submit" name="button" value="deleteIdea">Idee löschen</button>
-        <button type="submit" name="button" value="deleteRoom">Raum löschen</button>
-       </form>
+        <link rel="stylesheet" href="<c:url value="/css/ideadetail.css"/>" />
     </jsp:attribute>
     
      <jsp:attribute name="content">
-         <div class="container">
-             //Idee dynamisch erstellen
-         </div>
+             <div class="column">
+                 <div>
+                 <label for="idea_name">
+                     Neue Kategorie:
+                 </label>
+                <input type="text" name="idea_name" value="${idea_name}" readonly="readonly">
+                </div>
+                   
+                    <div>
+                     <label for="price">
+                        Preis:
+                     </label>
+                        <input type="text" name="price" value="${price}" readonly="readonly">
+                    </div>
+                    
+                    <div>
+                     <label for="link">
+                        Link:
+                     </label>
+                         <input type="text" name="link" value="${link}" readonly="readonly">
+                    </div>
+                    
+                    <div>
+                     <label for="picture">
+                        Bildpfad:
+                     </label>
+                      <input type="text" name="picture" value="${picture}" readonly="readonly">
+                    </div>
+                    
+                    <div>
+                     <label for="description">
+                        Beschreibung:
+                     </label>
+                      <input type="text" name="description" value="${description}" readonly="readonly">
+                    </div>
+                    
+                    <%-- Button zum Abschicken --%>
+                    <div>
+                        <button type="submit" name="button" value="deleteIdea">Löschen</button>
+                    </div>  
+               </div>
+ </jsp:attribute>
 </template:base>

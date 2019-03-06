@@ -37,5 +37,4 @@ public class FormData {
         this.errors = errors;
     }
     //</editor-fold>
-    
 }

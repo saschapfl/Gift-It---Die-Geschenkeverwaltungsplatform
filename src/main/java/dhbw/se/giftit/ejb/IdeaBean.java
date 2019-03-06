@@ -29,7 +29,7 @@ public class IdeaBean {
     }
     
     public List<IdeaEntry> findAllIdeas() {
-        return em.createQuery("SELECT i FROM Idea i ORDER BY i.id DESC").getResultList();
+        return em.createQuery("SELECT * FROM Idea_Table i ORDER BY i.id DESC").getResultList();
     }
     
     public IdeaEntry findIdea(long id) {

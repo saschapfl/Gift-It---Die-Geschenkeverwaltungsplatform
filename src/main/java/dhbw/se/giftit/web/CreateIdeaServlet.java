@@ -75,14 +75,7 @@ public class CreateIdeaServlet extends HttpServlet {
             this.ideaBean.CreateNewIdea(idea);
             response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + id);
         } else {
-            // Fehler: Formuler erneut anzeigen
-            FormData formValues = new FormData();
-            formValues.setValues(request.getParameterMap());
-            //formValues.setErrors(errors);
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("Rforms", formValues);
-            
+           
             response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
         }
     }
