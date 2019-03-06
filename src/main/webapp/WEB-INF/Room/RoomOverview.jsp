@@ -33,9 +33,9 @@
                             </p>
                         </c:when>
                         <c:otherwise>
-                            <ul>
+                            <ul class="list-group list-group-flush">
                                 <c:forEach items = "${entries}" var = "entry">
-                                    <li>
+                                    <li class="list-group-item">
                                         <a href ="<c:url value = "RoomView?id=${entry.id}"/>">${entry.name}</a>
                                     </li>
                                 </c:forEach>
