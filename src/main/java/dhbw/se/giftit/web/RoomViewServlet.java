@@ -8,6 +8,7 @@ package dhbw.se.giftit.web;
 import dhbw.se.giftit.ejb.IdeaBean;
 import dhbw.se.giftit.ejb.RoomBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
+import dhbw.se.giftit.jpa.RoomEntry;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,25 +38,28 @@ public class RoomViewServlet extends HttpServlet {
    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Dashboard-Rubriken und Kacheln erzeugen und im Request Context ablegen
-      //  List<IdeaEntry> sections = new ArrayList<>();
-        //request.setAttribute("sections", sections);
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp");
-        dispatcher.forward(request, response);
-
-    }
-        // Anfrage an die JSP weiterleiten
-      //  request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
-    
+  
+        // Room und Ideas zu Room holen
+        String sid = request.getParameter("id");
+        long id = Long.parseLong(sid);
+        RoomEntry room = this.roomBean.findRoom(id);
+        List<IdeaEntry> roomideas = room.getIdeas();
+        
+        // Session holen und Ideas an jsp weiterleiten
+        HttpSession session = request.getSession();
+        session.setAttribute("entries", roomideas);
+        request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
+    }    
     
  @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String button = request.getParameter("button");
+        String sid = request.getParameter("id");
+        long id = Long.parseLong(sid);
          switch (button) {
             case "createIdea":
-                response.sendRedirect(request.getContextPath() + "/secure/CreateIdea");
+                response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
                 break;
             case "deleteRoom":
                 roomBean.deleteRoom(Long.parseLong(request.getParameter("id")));

@@ -7,6 +7,7 @@ package dhbw.se.giftit.jpa;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,14 +35,14 @@ public class IdeaEntry implements Serializable {
     private String picture;
     
     @ManyToOne
-    private RoomEntry roomentry;
-    
+    private RoomEntry raum = null;
+            
     public IdeaEntry (){
         
     }
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     
-    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture){
+    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room){
         this.like = like;
         this.dislike = dislike;
         this.name = name;
@@ -49,7 +50,7 @@ public class IdeaEntry implements Serializable {
         this.description = description;
         this.link = link;
         this.picture = picture;
-
+        this.raum = room;
     }
 //</editor-fold>
 
@@ -118,13 +119,6 @@ public class IdeaEntry implements Serializable {
         this.picture = picture;
     }
     
-    public RoomEntry getRoomentry() {
-        return roomentry;
-    }
-    
-    public void setRoomentry(RoomEntry roomentry) {
-        this.roomentry = roomentry;
-    }
 //</editor-fold>
     
 }

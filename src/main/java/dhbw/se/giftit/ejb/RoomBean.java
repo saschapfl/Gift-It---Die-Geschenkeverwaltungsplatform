@@ -8,6 +8,8 @@ package dhbw.se.giftit.ejb;
 import dhbw.se.giftit.jpa.*;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,9 @@ public class RoomBean {
     //Referenz auf Persistence Klasse holen
     @PersistenceContext
     EntityManager em;
+    
+    @Resource
+    EJBContext ctx;
     
     //<editor-fold defaultstate="collapsed" desc="Standardmethoden">
     public RoomEntry createNewRoom(RoomEntry room) {
@@ -48,7 +53,7 @@ public class RoomBean {
     
     public RoomEntry updateRoom(RoomEntry room) {
         return em.merge(room);
-    }
+    }   
 //</editor-fold>
     
 }

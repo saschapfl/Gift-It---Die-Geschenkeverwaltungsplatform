@@ -6,9 +6,14 @@
 package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
+import dhbw.se.giftit.ejb.RoomBean;
+import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.ejb.ValidationBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
+import dhbw.se.giftit.jpa.RoomEntry;
+import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -28,6 +33,10 @@ public class CreateIdeaServlet extends HttpServlet {
 
     @EJB
     IdeaBean ideaBean;
+    
+    
+    @EJB
+    RoomBean roombean;
     
     @EJB
     ValidationBean validationBean;
@@ -56,14 +65,15 @@ public class CreateIdeaServlet extends HttpServlet {
         String price = request.getParameter("price");
         String like = "0";
         String dislike = "0";
-        
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture);
+        long id = Long.parseLong(request.getParameter("id"));
+        RoomEntry room = roombean.findRoom(id);
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture, room);
         List<String> errors = this.validationBean.validate(idea);
-         
+
         if (errors.isEmpty()) {
             // Keine Fehler: Raumansicht aufrufen
             this.ideaBean.CreateNewIdea(idea);
-            response.sendRedirect(request.getContextPath() +  "/secure/RoomView");
+            response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + id);
         } else {
             // Fehler: Formuler erneut anzeigen
             FormData formValues = new FormData();
@@ -73,7 +83,7 @@ public class CreateIdeaServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("Rforms", formValues);
             
-            response.sendRedirect(request.getContextPath() + "/secure/CreateIdea");
+            response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
         }
     }
 }

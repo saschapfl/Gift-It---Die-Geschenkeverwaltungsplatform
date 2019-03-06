@@ -26,9 +26,26 @@
        </form>
     </jsp:attribute>
     
-     <jsp:attribute name="content">
-         <div class="container">
-             //Idee dynamisch erstellen
-         </div>
-     </jsp:attribute>
+    <jsp:attribute name="content">
+        <div class="container">
+                <div class="column">
+                    <c:choose>
+                        <c:when test = "${empty entries}">
+                            <p>
+                                Der Raum hat keine Ideen, legen Sie Ideen an, um mit Ihren Freunden über ein Geschenk abstimmen zu können!
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+                            <ul>
+                                <c:forEach items = "${entries}" var = "entry">
+                                    <li>
+                                        <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul> 
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+        </div>
+    </jsp:attribute>
 </template:base>

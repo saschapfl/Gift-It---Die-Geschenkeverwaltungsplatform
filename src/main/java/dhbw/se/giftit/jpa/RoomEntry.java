@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,7 @@ public class RoomEntry implements Serializable {
     @ManyToMany
     private List<UserEntry> users = new ArrayList<UserEntry>();
     
-    @OneToMany
+    @OneToMany(mappedBy = "raum", fetch = FetchType.EAGER)
     private List<IdeaEntry> ideas = new ArrayList<IdeaEntry>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
