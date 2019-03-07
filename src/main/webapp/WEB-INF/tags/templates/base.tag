@@ -22,6 +22,8 @@
         <link rel="stylesheet" href="<c:url value="/fontello/css/fontello.css"/>" />
         <link rel="stylesheet" href="<c:url value="/css/main.css"/>" />
         <link rel="stylesheet" href="<c:url value="/css/form.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/font-awesome-4.7.0/css/font-awesome.min.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/Content.css"/>"/>
 
         <jsp:invoke fragment="head"/>
     </head>

@@ -16,12 +16,14 @@
     <jsp:attribute name="title">
             Login fehlerhaft!
     </jsp:attribute>
-    <jsp:attribute name="head">
-        <div>
-            Login ist fehlgeschlagen!
-        </div>
-    </jsp:attribute>
     <jsp:attribute name="content">
-         <a href="<c:url value="/secure/RoomOverview"/>">Zurück zur Anmeldung</a>
+        <div class="container">
+        <div class="form group">
+            <label> Da ist etwas schief gegangen! <i class="fa fa-frown-o" aria-hidden="true"></i> </label>
+            <div>
+                <a class="btn btn-primary" href="<c:url value="/secure/RoomOverview"/>" role="button">Zurück zur Anmeldung</a>
+            </div>
+            </div>
+        </div>
     </jsp:attribute>    
 </template:base>

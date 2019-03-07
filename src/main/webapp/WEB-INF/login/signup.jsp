@@ -13,37 +13,44 @@
 <c:set var="base_url" value="<%=request.getContextPath()%>" />
 
 <template:base>
+    <jsp:attribute name="title">
+        Registrieren
+    </jsp:attribute>
     <jsp:attribute name="content">
         <div class="container">
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
-                    <label for="bname">
-                        Benutzername:*
-                    </label>
-                    <div>
-                        <input type="text" name="bname" value="${Rforms.values["bname"][0]}" required>
+                    <div class="form group">
+                        <label for="bname">Benutzername:*</label> 
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="bname" value="${Rforms.values["bname"][0]}" placeholder="Benutzername eingeben" required>
                     </div>
-
-                    <label for="password1">
-                        Passwort:*
-                    </label>
-                    <div>
-                        <input type="password" name="password1" value="${Rforms.values["password1"][0]}"required>
                     </div>
-
-                    <label for="password2">
-                        Passwort wiederholen:*
-                    </label>
-                    <div>
-                        <input type="password" name="password2" value="${Rforms.values["password2"][0]}" required>
+                    <div class="form group">
+                         <label for="password1">Passwort:*</label>
                     </div>
-
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" name="password1" value="${Rforms.values["password1"][0]}" placeholder="Passwort eingeben" required>
+                    </div>
+                    <div class="form group">   
+                        <label for="password2">Passwort wiederholen:*</label>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" name="password2" value="${Rforms.values["password2"][0]}" placeholder="Passwort wiederholen" required>
+                    </div>              
                     <%-- Button zum Abschicken --%>
-                    <div >
-                        <button class="icon-pencil" type="submit">
-                            Registrieren
-                        </button>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Registrieren</button>
                     </div>
                 </div>
 
