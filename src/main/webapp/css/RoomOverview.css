@@ -7,4 +7,15 @@ and open the template in the editor.
     Created on : 06.03.2019, 15:45:50
     Author     : spfli
 */
-
+body{
+    background-image: url("/giftit/images/background.jpg")!important;
+}
+.rooms{
+    color: black!important;  
+    transition: 0.6s;
+}
+.rooms:hover{
+    transform: scale(1.05);
+    text-decoration: none;
+    background-color: lightgray;
+}

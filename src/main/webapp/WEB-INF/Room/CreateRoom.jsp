@@ -16,7 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/createRoom.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/CreateRoom.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -27,43 +27,47 @@
         <div class="container">
             <form method="post" class="stacked">
                 <div class="column">
-                    <label for="roomname">
-                        Raumname:
-                        <span class="required">*</span>
-                    </label>
-                    <div>
-                    <input type="text" name="roomname"  value = "${form_data[0]}" required>
+                    <div class = "form-group">
+                        <label for="roomname">
+                            Raumname:
+                            <span class="required">*</span>
+                        </label>                   
+                        <input type="text" name="roomname" class ="form-control" value = "${form_data[0]}">
                     </div>
-                    <label for="deadlineCollection">
-                        Ideensammlungsdeadline:
-                        <span class="required">*</span>
-                    </label>
-                    <div>
-                    <input type="date" name="deadlineCollection" value = "${form_data[1]}">
+                    
+                    <div class = "form-group">
+                        <label for="deadlineCollection">
+                            Ideensammlungsdeadline:
+                            <span class="required">*</span>
+                        </label>                  
+                        <input type="date" name="deadlineCollection" class="form-control" value = "${form_data[1]}">
                     </div>
-                    <label for="deadlineRating">
-                        Ideenbewertungsdeadline:
-                        <span class="required">*</span>
-                    </label>
-                    <div>
-                    <input type="date" name="deadlineRating" value = "${form_data[2]}">
+                    
+                    <div class = "form-group">
+                        <label for="deadlineRating">
+                            Ideenbewertungsdeadline:
+                            <span class="required">*</span>
+                        </label>                  
+                        <input type="date" name="deadlineRating" class="form-control" value = "${form_data[2]}">
                     </div>
-                    <label for="participant">
-                        Teilnehmer hinzufügen:
-                    </label>
-                    <div>
-                        <input type ="text" name ="participant">
-                        <button type ="submit" name="button" value="add_participant">hinzufügen</button>
-                        <button type ="submit" name="button" value="remove_participant">löschen</button>
+                    <div class = "form-group">
+                        <label for="participant" class = "mr-4">
+                            Teilnehmer:
+                        </label>
+                        <div class="form-inline">
+                            <input id = "participants" type ="text" name ="participant" class = "form-control mr-4">
+                            <button type ="submit" name="button" value="add_participant" class="btn btn-outline-success btn-sm mr-2">hinzufügen</button>
+                            <button type ="submit" name="button" value="remove_participant" class = "btn btn-outline-danger btn-sm">löschen</button>
+                        </div>    
                     </div>
                     <div>
-                        <ul>
+                        <ul class ="list-group-inline">
                             <c:forEach items = "${participants}" var = "part">
-                                    <li>${part.username}</li>
+                                    <li class = "list-group-item">${part.username}</li>
                             </c:forEach>
                         </ul>
                     </div>
-                    <button type = "submit" name="button" value="add_room">
+                    <button type = "submit" name="button" value="add_room" class = "btn btn-outline-primary">
                         Raum speichern
                     </button>
                     <div>

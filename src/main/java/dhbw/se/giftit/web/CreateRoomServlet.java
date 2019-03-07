@@ -65,6 +65,7 @@ public class CreateRoomServlet extends HttpServlet {
             throws ServletException, IOException{
         //Grundsätzliches (gedrückten button abfragen und Formulardaten speichern)
        String buttonname = request.getParameter("button");
+       form_data.clear();
        form_data.add(request.getParameter("roomname"));
        form_data.add(request.getParameter("deadlineCollection"));
        form_data.add(request.getParameter("deadlineRating"));

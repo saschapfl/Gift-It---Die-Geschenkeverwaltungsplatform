@@ -32,7 +32,7 @@
             <!-- Image and text -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <a class="navbar-brand" href="/giftit/secure/RoomOverview">
-                <img src="/images/icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="/giftit/images/icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                 Gift-It! - ${title}
               </a>
             

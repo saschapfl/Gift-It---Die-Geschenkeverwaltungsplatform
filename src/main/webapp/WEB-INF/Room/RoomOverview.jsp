@@ -16,7 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/overview.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/RoomOverview.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -28,16 +28,20 @@
                 <div class="column">
                     <c:choose>
                         <c:when test = "${empty entries}">
-                            <p>
-                                Sie sind in keinem Geschenkraum!
-                            </p>
+                            <ul class="list-group list-group-flush">
+                                <li class ="list-group-item">Sie sind in keinem Geschenkraum</li>
+                            </ul>
                         </c:when>
                         <c:otherwise>
                             <ul class="list-group list-group-flush">
                                 <c:forEach items = "${entries}" var = "entry">
-                                    <li class="list-group-item">
-                                        <a href ="<c:url value = "RoomView?id=${entry.id}"/>">${entry.name}</a>
-                                    </li>
+                                    <a class="list-group-item rooms" href ="<c:url value = "RoomView?id=${entry.id}"/>">
+                                        <p>${entry.name}</p>
+                                        <div class ="mx-auto">
+                                        <small>Ideen: ${fn:length(entry.ideas)}</small>
+                                        <small>Budget: ${entry.budget}€</small>                          
+                                        </div>
+                                    </a>
                                 </c:forEach>
                             </ul> 
                         </c:otherwise>
