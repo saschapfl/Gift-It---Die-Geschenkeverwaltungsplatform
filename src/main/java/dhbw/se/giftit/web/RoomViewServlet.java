@@ -38,34 +38,18 @@ public class RoomViewServlet extends HttpServlet {
    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-  
+ 
         // Room und Ideas zu Room holen
         String sid = request.getParameter("id");
         long id = Long.parseLong(sid);
         RoomEntry room = this.roomBean.findRoom(id);
         List<IdeaEntry> roomideas = room.getIdeas();
-        
+                
         // Session holen und Ideas an jsp weiterleiten
         HttpSession session = request.getSession();
         session.setAttribute("entries", roomideas);
+        session.setAttribute("id", id);
         request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
     }    
-    
- @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String button = request.getParameter("button");
-        String sid = request.getParameter("id");
-        long id = Long.parseLong(sid);
-         switch (button) {
-            case "deleteRoom":
-                roomBean.deleteRoom(Long.parseLong(request.getParameter("id")));
-                response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");
-                break;
-            default:
-                break;
-        }
-
-    }
 
 }

@@ -78,5 +78,6 @@ public class CreateIdeaServlet extends HttpServlet {
            
             response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
         }
+        
     }
 }

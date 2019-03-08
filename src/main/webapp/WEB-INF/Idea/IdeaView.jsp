@@ -62,6 +62,9 @@
                         <input type="text" class="form-control" name="description" value="${description}" readonly="readonly">
                     </div>
                     
+                    <a class="btn btn-success" href="#">
+                    <i class="icon-shopping-cart icon-large"></i> Checkout</a>
+                    
                     <%-- Button zum Abschicken --%>
                     <div>
                         <button class="btn btn-primary" type="submit"  name="button" value="deleteIdea">Löschen</button>

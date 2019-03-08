@@ -20,8 +20,8 @@
     </jsp:attribute>
    
     <jsp:attribute name="menu">
-            <a class="nav-item nav-link" href="<c:url value="/secure/CreateIdea"/>">Idee erstellen</a>  
-            <a class="nav-item nav-link" href="<c:url value="/secure/DeleteRoom"/>">Raum löschen</a>
+            <a class="nav-item nav-link" href="<c:url value="/secure/CreateIdea?id=${id}"/>">Idee erstellen</a>  
+            <a class="nav-item nav-link" href="<c:url value="/secure/deleteRoom?id=${id}"/>">Raum löschen</a>
     </jsp:attribute>
 
         
