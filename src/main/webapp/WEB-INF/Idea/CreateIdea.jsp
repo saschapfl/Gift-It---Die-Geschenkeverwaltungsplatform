@@ -26,7 +26,7 @@
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
-                    <div>
+                    <div class ="input">
                      <label for="name">
                         Ideen Name:
                         <span class="required">*</span>
@@ -34,28 +34,28 @@
                          <input type="text" name="name" value="${Rforms.values["name"][0]}" required>
                     </div>
                    
-                    <div>
+                    <div class ="input">
                      <label for="price">
                         Preis:
                      </label>
                        <input type="text" name="price" value="${Rforms.values["price"][0]}">
                     </div>
                     
-                    <div>
+                    <div class ="input">
                      <label for="link">
                         Link:
                      </label>
                          <input type="text" name="link" value="${Rforms.values["link"][0]}">
                     </div>
                     
-                    <div>
+                    <div class ="input">
                      <label for="picture">
                         Bildpfad:
                      </label>
                          <input type="picture" name="picture" value="${Rforms.values["picture"][0]}">
                     </div>
                     
-                    <div>
+                    <div class ="input">
                      <label for="description">
                         Beschreibung:
                      </label>
@@ -64,7 +64,7 @@
                     
                     <%-- Button zum Abschicken --%>
                     <div>
-                        <button class="icon-pencil" type="submit">
+                        <button class="btn btn-primary" type="submit">
                             Speichern
                         </button>
                     </div>

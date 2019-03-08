@@ -58,9 +58,6 @@ public class RoomViewServlet extends HttpServlet {
         String sid = request.getParameter("id");
         long id = Long.parseLong(sid);
          switch (button) {
-            case "createIdea":
-                response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
-                break;
             case "deleteRoom":
                 roomBean.deleteRoom(Long.parseLong(request.getParameter("id")));
                 response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");

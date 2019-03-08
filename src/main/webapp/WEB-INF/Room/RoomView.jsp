@@ -18,13 +18,14 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="<c:url value="/css/roomview.css"/>" />
     </jsp:attribute>
-        
-   <jsp:attribute name="menu">
-       <form method="post">
-        <button type="submit" name="button" value="createIdea">Idee erstellen</button>
-        <button type="submit" name="button" value="deleteRoom">Raum löschen</button>
-       </form>
+   
+    <jsp:attribute name="menu">
+            <a class="nav-item nav-link" href="<c:url value="/secure/CreateIdea"/>">Idee erstellen</a>  
+            <a class="nav-item nav-link" href="<c:url value="/secure/DeleteRoom"/>">Raum löschen</a>
     </jsp:attribute>
+
+        
+
     
     <jsp:attribute name="content">
         <div class="container">
