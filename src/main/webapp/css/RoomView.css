@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08.03.2019, 14:22:13
+    Author     : spfli
+*/
+
+html, body, main{
+    height: 100%;
+}
+main{
+    margin: 0;
+}
+#room_participants{
+    background-color: lightgray;
+}

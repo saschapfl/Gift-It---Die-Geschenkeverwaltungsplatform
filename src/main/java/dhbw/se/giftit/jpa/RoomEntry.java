@@ -35,7 +35,7 @@ public class RoomEntry implements Serializable {
     private int budget;
     private UserEntry purchaser;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserEntry> users = new ArrayList<UserEntry>();
     
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)

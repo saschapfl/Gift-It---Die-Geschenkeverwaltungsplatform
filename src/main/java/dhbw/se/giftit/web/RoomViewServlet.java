@@ -7,8 +7,10 @@ package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
 import dhbw.se.giftit.ejb.RoomBean;
+import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
 import dhbw.se.giftit.jpa.RoomEntry;
+import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,22 +36,33 @@ public class RoomViewServlet extends HttpServlet {
     @EJB
     RoomBean roomBean;
     
-     
+    @EJB
+    UserBean userbean;
    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+        
+  
         // Room und Ideas zu Room holen
         String sid = request.getParameter("id");
         long id = Long.parseLong(sid);
         RoomEntry room = this.roomBean.findRoom(id);
-        List<IdeaEntry> roomideas = room.getIdeas();
-                
-        // Session holen und Ideas an jsp weiterleiten
-        HttpSession session = request.getSession();
-        session.setAttribute("entries", roomideas);
-        session.setAttribute("id", id);
-        request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
+        //Teilnehmer anzeigen
+        request.setAttribute("participants", room.getUsers());
+        UserEntry current_user = userbean.getUser();
+        if(!current_user.getRaeume().contains(room)){
+            response.sendRedirect(request.getContextPath() + "/secure/RoomOverview?accessdenied=true");
+        }
+        else{
+            List<IdeaEntry> roomideas = room.getIdeas();
+
+            // Session holen und Ideas an jsp weiterleiten
+            HttpSession session = request.getSession();
+            session.setAttribute("entries", roomideas);
+            request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
+            session.setAttribute("id", id);
+        }
+       
     }    
 
 }

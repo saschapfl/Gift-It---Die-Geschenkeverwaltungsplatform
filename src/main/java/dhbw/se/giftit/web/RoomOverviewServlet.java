@@ -9,6 +9,7 @@ import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.RoomEntry;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -40,7 +41,9 @@ public class RoomOverviewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        if(request.getParameter("roomenterfailed") != null){
+            
+        }
         UserEntry user = userbean.getUser();
         List<RoomEntry> raeume = user.getRaeume();
         HttpSession session = request.getSession();

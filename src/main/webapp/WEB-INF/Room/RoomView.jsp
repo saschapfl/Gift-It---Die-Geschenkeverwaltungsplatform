@@ -16,7 +16,7 @@
     </jsp:attribute>
         
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/roomview.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/RoomView.css"/>" />
     </jsp:attribute>
    
     <jsp:attribute name="menu">
@@ -28,8 +28,17 @@
 
     
     <jsp:attribute name="content">
-        <div class="container">
-                <div class="column">
+        <div class="container h-100 w-100 m-0 p-0 d-flex">
+                <div class ="w-25 h-100 m-0 p-4" id="room_participants">
+                    <h2 class = "pl-4">Teilnehmer</h2>
+                        <ul class = "list-group list-group-flush">
+                            <c:forEach items = "${participants}" var = "part">
+                                <li class = "list-group-item">${part.username}</li>
+                            </c:forEach> 
+                        </ul>
+                
+                 </div>
+                <div class="w-75">
                     <c:choose>
                         <c:when test = "${empty entries}">
                             <p>

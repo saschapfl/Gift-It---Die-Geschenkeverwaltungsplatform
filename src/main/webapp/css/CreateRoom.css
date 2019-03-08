@@ -10,3 +10,11 @@ and open the template in the editor.
 #participants{
     width: 70%;
 }
+body{
+    background-image: url("/giftit/images/room.jpg");
+    background-size: cover;
+}
+.create_form_label{
+    font-size: 16pt;
+    font-weight: bold;
+}
