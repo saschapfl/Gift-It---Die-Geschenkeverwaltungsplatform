@@ -52,8 +52,8 @@
                                                     <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                <small class="text-muted"><a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.like}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></small>
-                                                <small class=""test-muted><a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.dislike}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i>2</small>
+                                                <small class="text-muted"><a>${entry.like}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></small>
+                                                <small class="test-muted"><a>${entry.dislike}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></small>
                                                 </div>
                                             </div>
                                 </c:forEach>
