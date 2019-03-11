@@ -17,3 +17,12 @@ main{
 #room_participants{
     background-color: lightgray;
 }
+
+.card {
+  float: left;
+  width: 45%;
+  display: flex;
+  margin: 2%;
+  margin-left: 3%;
+}
+

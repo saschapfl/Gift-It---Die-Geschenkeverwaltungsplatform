@@ -61,6 +61,7 @@
                      <div class="form-group col-md-6">
                      <label for="description">
                         Beschreibung:
+                         <span class="required">*</span>
                      </label>
                        <input type="text" class="form-control" name="description" value="${Rforms.values["description"][0]}">
                     </div>
