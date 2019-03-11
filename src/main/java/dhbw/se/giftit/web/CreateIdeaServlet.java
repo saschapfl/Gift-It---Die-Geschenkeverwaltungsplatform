@@ -53,6 +53,7 @@ public class CreateIdeaServlet extends HttpServlet {
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
         session.removeAttribute("Rform");  
+        RoomViewServlet.warning = "";
     }
 
     @Override

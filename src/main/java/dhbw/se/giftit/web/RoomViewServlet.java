@@ -38,11 +38,15 @@ public class RoomViewServlet extends HttpServlet {
     
     @EJB
     UserBean userbean;
+    
+    public static String warning;
    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-  
+        //Warning setzen
+        request.setAttribute("warning", warning);
+        
         // Room und Ideas zu Room holen
         String sid = request.getParameter("id");
         long id = Long.parseLong(sid);
@@ -59,12 +63,68 @@ public class RoomViewServlet extends HttpServlet {
             // Session holen und Ideas an jsp weiterleiten
             HttpSession session = request.getSession();
             session.setAttribute("entries", roomideas);
-            session.setAttribute("id", sid);  
-            request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
+            
+            //Teilnehmerverwaltung für den Ersteller aktivieren, für alle anderen deaktivieren
+            if(current_user.getUsername().equals(room.getUsers().get(0).getUsername())){
+                String a = "true";
+                request.setAttribute("owner", a);
+            }
             session.setAttribute("id", id);
+            request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
+            
         }
        
-    }  
-    
-  
+    }
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        warning = "";
+        String buttonname = request.getParameter("button");
+        UserEntry user= userbean.getUserByUname(buttonname);
+        long id = Long.parseLong(request.getParameter("id"));
+        RoomEntry room = roomBean.findRoom(id);
+        List<UserEntry> users = room.getUsers();
+        if(buttonname.equals("add_user")){
+            UserEntry userToAdd = userbean.getUserByUname(request.getParameter("new_part"));
+            if(userToAdd == null){
+                warning = "Dieser Benutzer ist nicht vorhanden!";
+                response.sendRedirect(request.getRequestURI() + "?id=" + id);
+            }
+            else{
+                for(UserEntry ue : users){
+                    if(ue.getUsername().equals(userToAdd.getUsername())){
+                        warning = "Dieser Benutzer ist bereits im Raum!";
+                        response.sendRedirect(request.getRequestURI() + "?id=" + id);
+                    }
+                }
+                //Wenn kein Fehler vorhanden ist, speichere den User im Raum
+                if(warning.isEmpty()){
+                    users.add(userToAdd);
+                    room.setUsers(users);
+                    roomBean.updateRoom(room);
+                    response.sendRedirect(request.getRequestURI() + "?id=" + id);
+                }
+            }
+        }
+        else{
+            if(users.get(0).getUsername().equals(user.getUsername())){
+                warning = "Sie können sich selbst nicht aus dem Raum entfernen! Um den Raum zu löschen benutzen Sie bitte den Button 'Raum löschen'";              
+                response.sendRedirect(request.getRequestURI() + "?id=" + id);
+            }
+            else{
+                UserEntry deleted_user = null;
+                for(UserEntry ue : users){
+                    if(ue.getUsername().equals(user.getUsername())){
+                        deleted_user = ue;
+                    }
+                }
+                users.remove(deleted_user);
+                room.setUsers(users);
+                roomBean.updateRoom(room);
+
+                response.sendRedirect(request.getRequestURI() + "?id=" + id);
+            }
+        }
+    }
+
 }

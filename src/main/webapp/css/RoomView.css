@@ -16,6 +16,10 @@ main{
 }
 #room_participants{
     background-color: lightgray;
+    border: 1px solid grey;
+    border-bottom-right-radius: 1.5em;
+    border-top-right-radius: 1.5em;
+   
 }
 
 .card {
@@ -26,3 +30,14 @@ main{
   margin-left: 3%;
 }
 
+
+h2{
+    font-weight: bold;
+}
+#add_user{
+    height: 100%!important;
+}
+#add_user_btn{
+    width: 32%!important;
+    font-size: 16pt;
+}

@@ -18,3 +18,9 @@ body{
     font-size: 16pt;
     font-weight: bold;
 }
+.turn{
+    transition: 0.5s;
+}
+.turn:hover{
+    transform: rotate(360deg);
+}

@@ -27,14 +27,29 @@
     
     <jsp:attribute name="content">
         <div class="container h-100 w-100 m-0 p-0 d-flex">
-                <div class ="w-25 h-100 m-0 p-4" id="room_participants">
+                <div class ="w-25 h-100 m-0 p-4 " id="room_participants">
+                    <form method ="post" class ="stacked">
                     <h2 class = "pl-4">Teilnehmer</h2>
                         <ul class = "list-group list-group-flush">
                             <c:forEach items = "${participants}" var = "part">
-                                <li class = "list-group-item">${part.username}</li>
+                                <li class = "list-group-item mt-2 mb-2 rounded">
+                                    ${part.username}
+                                    <c:if test = "${owner}">
+                                        <button type="submit" name = "button" value = "${part.username}" class="close ml-2" aria-label="Close">
+                                                   <span aria-hidden="true">&times;</span>
+                                        </button> 
+                                    </c:if>
+                                </li>
                             </c:forEach> 
+                            <c:if test = "${owner==true}">
+                                <li class ="d-flex mt-4">
+                                    <input id = "add_user" name ="new_part" class = "w-75 mr-4"/>
+                                    <button type = "submit" id = "add_user_btn" class = "btn btn-primary" name = "button" value = "add_user"><i class = "fa fa-plus-circle"></i></button>
+                                </li>
+                            </c:if>    
                         </ul>
-                
+                    <p>${warning}</p>
+                    </form>
                  </div>
                 <div class="w-75">
                     <c:choose>

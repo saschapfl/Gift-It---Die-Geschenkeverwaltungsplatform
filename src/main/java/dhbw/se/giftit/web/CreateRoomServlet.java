@@ -109,24 +109,10 @@ public class CreateRoomServlet extends HttpServlet {
        }
 //</editor-fold>
        
-       //<editor-fold defaultstate="collapsed" desc="Teilnehmer entfernen">
-       else if(buttonname.equals("remove_participant")){
-           error = "";
-           String uname = request.getParameter("participant");
-           if(allParticipants != null){
-                for(UserEntry user:allParticipants){
-                    if(uname.equals(user.getUsername())){
-                        allParticipants.remove(user);                       
-                        break;
-                    }
-                }
-           }
-           response.sendRedirect(request.getContextPath() + "/secure/createRoom");
-       }
-//</editor-fold>
+
        
        //<editor-fold defaultstate="collapsed" desc="Raum erstellen">
-       else{
+       else if(buttonname.equals("add_room")){
            if(request.getParameter("roomname").trim().equals("")){
                error = "Bitte geben Sie einen Raumnamen ein";
                response.sendRedirect(request.getContextPath() + "/secure/createRoom");
@@ -140,7 +126,7 @@ public class CreateRoomServlet extends HttpServlet {
                 Date deadline2 = format.parse(date);
                 Date now = new Date();
 
-                if(deadline1.compareTo(deadline2) >= 0){
+                if(deadline1.compareTo(deadline2) > 0){
                     error = "Die Deadline zum Sammeln von Ideen muss vor der Abstimmung stattfinden!";
                     response.sendRedirect(request.getContextPath() + "/secure/createRoom");
                 }
@@ -165,6 +151,21 @@ public class CreateRoomServlet extends HttpServlet {
             }
            
            }
+       }
+//</editor-fold>
+
+               //<editor-fold defaultstate="collapsed" desc="Teilnehmer entfernen">
+       else{
+           String uname = buttonname;
+           if(allParticipants != null){
+                for(UserEntry user:allParticipants){
+                    if(uname.equals(user.getUsername())){
+                        allParticipants.remove(user);                       
+                        break;
+                    }
+                }
+           }
+           response.sendRedirect(request.getContextPath() + "/secure/createRoom");
        }
 //</editor-fold>
     }
