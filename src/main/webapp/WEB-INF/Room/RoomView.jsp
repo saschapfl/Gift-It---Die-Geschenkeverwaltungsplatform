@@ -24,8 +24,6 @@
             <a class="nav-item nav-link" href="<c:url value="/secure/deleteRoom?id=${id}"/>">Raum löschen</a>
     </jsp:attribute>
 
-        
-
     
     <jsp:attribute name="content">
         <div class="container h-100 w-100 m-0 p-0 d-flex">
@@ -49,7 +47,19 @@
                             <ul>
                                 <c:forEach items = "${entries}" var = "entry">
                                     <li>
-                                        <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a>
+                                        <div class="card-group">
+                                            <div class="card">
+                                                <img scr= "<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}/>
+                                                <div class="card-body">   
+                                                    <h5 class="card-title"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a></h5>
+                                                    <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
+                                                </div>
+                                                <div class="card-footer">
+                                                <small class="text-muted"><a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.like}</a></small>
+                                                <small class=""test-muted><a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.dislike}</a></small>
+                                                </div>
+                                            </div>
+                                        
                                     </li>
                                 </c:forEach>
                             </ul> 

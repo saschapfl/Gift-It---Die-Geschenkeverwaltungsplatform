@@ -59,10 +59,12 @@ public class RoomViewServlet extends HttpServlet {
             // Session holen und Ideas an jsp weiterleiten
             HttpSession session = request.getSession();
             session.setAttribute("entries", roomideas);
+            session.setAttribute("id", sid);  
             request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
             session.setAttribute("id", id);
         }
        
-    }    
-
+    }  
+    
+  
 }

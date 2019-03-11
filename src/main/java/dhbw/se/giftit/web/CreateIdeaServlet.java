@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
@@ -57,11 +58,13 @@ public class CreateIdeaServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+       
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String link = request.getParameter("link");
-        String picture = request.getParameter("picture");
+        String picture = request.getParameter("upload");
         String price = request.getParameter("price");
         String like = "0";
         String dislike = "0";

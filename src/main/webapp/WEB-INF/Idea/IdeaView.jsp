@@ -29,9 +29,7 @@
                         <label for="idea_name">
                          Name:
                          </label>
-                        <div class ="test">
                         <input type="text" class="form-control backgr" name="idea_name" value="${idea_name}" readonly="readonly">
-                        </div>
                     </div>
                    
                     <div class="form-group col-md-6">

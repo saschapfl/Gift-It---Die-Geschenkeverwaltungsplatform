@@ -18,7 +18,9 @@
     </jsp:attribute>
         
     <jsp:attribute name="head">
+       <form class="post">
         <link rel="stylesheet" href="<c:url value="/css/createIdea.css"/>" />
+       </form>
     </jsp:attribute>
     
      <jsp:attribute name="content">
@@ -26,40 +28,41 @@
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
-                    <div class ="input">
+                    
+                     <div class="form-group col-md-6">
                      <label for="name">
-                        Ideen Name:
+                         Name:
                         <span class="required">*</span>
                      </label>
-                         <input type="text" name="name" value="${Rforms.values["name"][0]}" required>
+                         <input type="text" class="form-control" name="name" value="${Rforms.values["name"][0]}" required>
                     </div>
                    
-                    <div class ="input">
+                     <div class="form-group col-md-6">
                      <label for="price">
                         Preis:
                      </label>
-                       <input type="text" name="price" value="${Rforms.values["price"][0]}">
+                       <input type="number" step="0.01" class="form-control" name="price" value="${Rforms.values["price"][0]}">
                     </div>
                     
-                    <div class ="input">
+                     <div class="form-group col-md-6">
                      <label for="link">
                         Link:
                      </label>
-                         <input type="text" name="link" value="${Rforms.values["link"][0]}">
+                         <input type="url" class="form-control" name="link" value="${Rforms.values["link"][0]}">
                     </div>
                     
-                    <div class ="input">
+                     <div class="form-group col-md-6">
                      <label for="picture">
                         Bildpfad:
                      </label>
-                         <input type="picture" name="picture" value="${Rforms.values["picture"][0]}">
+                         <input type="file" class="picture" name="upload" value="${Rforms.values["picture"][0]}">
                     </div>
                     
-                    <div class ="input">
+                     <div class="form-group col-md-6">
                      <label for="description">
                         Beschreibung:
                      </label>
-                       <input type="text" name="description" value="${Rforms.values["description"][0]}">
+                       <input type="text" class="form-control" name="description" value="${Rforms.values["description"][0]}">
                     </div>
                     
                     <%-- Button zum Abschicken --%>
