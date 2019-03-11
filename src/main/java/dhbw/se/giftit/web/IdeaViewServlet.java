@@ -7,9 +7,12 @@ package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
 import dhbw.se.giftit.ejb.RoomBean;
+import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
 import dhbw.se.giftit.jpa.RoomEntry;
+import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,6 +34,8 @@ public class IdeaViewServlet extends HttpServlet {
  IdeaBean ideaBean;
  @EJB
 RoomBean roomBean;
+ @EJB
+ UserBean userBean;
  
  IdeaEntry idea = new IdeaEntry();
  
@@ -52,15 +57,39 @@ RoomBean roomBean;
       
         long id = Long.parseLong(request.getParameter("id"));
         idea = ideaBean.findIdea(id);
+        long idr = idea.getRoom().getId();   
+        
+        UserEntry user = userBean.getUser();
+        String uname = user.getUsername();
+        List<UserEntry> listusers = idea.getUsers();
+        
+        // schauen ob User bereits gevotet hat und flag setzten
+        String flag = "true";
+        if (listusers.size()>0) {
+            for(UserEntry acc: listusers) {
+                if (uname.equals(acc.getUsername())) {
+                    flag = "false";
+                    break;
+                } 
+            }
+        }
+        
         
         HttpSession session = request.getSession();
+        session.setAttribute("flag", flag);
+        session.setAttribute("idr", idr);
         session.setAttribute("idea_name", idea.getName());
         session.setAttribute("price", idea.getPrice());
         session.setAttribute("link", idea.getLink());
         session.setAttribute("description", idea.getDescription());
+        
+        
+        
        // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/IdeaView.jsp");
         dispatcher.forward(request, response);
+        
+        
         
     }
 
@@ -82,15 +111,49 @@ RoomBean roomBean;
         
         long id = Long.parseLong(request.getParameter("id"));
         idea = ideaBean.findIdea(id);
-       
+        UserEntry user = userBean.getUser();
+        String uname = user.getUsername();
+        List<UserEntry> listusers = idea.getUsers();
+        
         switch (button) {
             case "deleteIdea":
                 ideaBean.deleteIdea(Long.parseLong(request.getParameter("id")));
-                 response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + idr);
+                response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + idr);
                 break;
+            case "like":                       
+                // User Liste holen und mit aktuellen User füllen
+                listusers.add(user);
+                idea.setUsers(listusers);
+                // Like's holen und eins hochzählen
+                String like = idea.getLike();
+                int likes = Integer.parseInt(like);
+                likes = likes + 1;
+                like = Integer.toString(likes);
+                idea.setLike(like);
+                // IdeaObject einmal updaten
+                ideaBean.updateIdea(idea); 
+                // Auf Seite redirecten
+                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
+                break;
+            case "dislike":
+                // User Liste holen und mit aktuellen User füllen
+                List<UserEntry> users = idea.getUsers();
+                users.add(user);
+                idea.setUsers(users);
+                // Dislikes's holen und eins hochzählen
+                String dislike = idea.getDislike();
+                int dislikes = Integer.parseInt(dislike);
+                dislikes = dislikes + 1;
+                dislike = Integer.toString(dislikes);
+                idea.setLike(dislike);
+                // IdeaObject einmal updaten
+                ideaBean.updateIdea(idea); 
+                // Auf Seite redirecten
+                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
+                break; 
+            } 
+        
         }
-
-    }
     
     }
 

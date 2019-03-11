@@ -6,11 +6,15 @@
 package dhbw.se.giftit.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -34,6 +38,9 @@ public class IdeaEntry implements Serializable {
     private String link;
     private String picture;
     
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserEntry> users = new ArrayList<UserEntry>();
+    
     @ManyToOne
     private RoomEntry room = null;
             
@@ -42,7 +49,7 @@ public class IdeaEntry implements Serializable {
     }
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     
-    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room){
+    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room, List<UserEntry> users){
         this.like = like;
         this.dislike = dislike;
         this.name = name;
@@ -51,6 +58,7 @@ public class IdeaEntry implements Serializable {
         this.link = link;
         this.picture = picture;
         this.room = room;
+        this.users = users;
     }
 //</editor-fold>
 
@@ -122,6 +130,16 @@ public class IdeaEntry implements Serializable {
         this.picture = picture;
     }
     
+    public List<UserEntry> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntry> users) {
+        this.users = users;
+    }
+    
 //</editor-fold>
+
+
     
 }

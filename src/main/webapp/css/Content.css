@@ -23,3 +23,9 @@ main{
 .form group {
     justify-content: center;
 }
+
+.buttons {
+    margin-left: 26%;
+    float: left;
+    padding: 20px;
+}

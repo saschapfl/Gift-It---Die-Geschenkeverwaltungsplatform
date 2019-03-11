@@ -55,6 +55,9 @@ public class UserEntry implements Serializable {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     List<RoomEntry> raeume = new ArrayList<>();
     
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    List<IdeaEntry> idea = new ArrayList<>();
+    
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public UserEntry() {
         
@@ -83,6 +86,15 @@ public class UserEntry implements Serializable {
     public void setRaeume(List<RoomEntry> raeume) {
         this.raeume = raeume;
     }
+
+    public List<IdeaEntry> getIdea() {
+        return idea;
+    }
+
+    public void setIdea(List<IdeaEntry> idea) {
+        this.idea = idea;
+    }
+    
 
     public List<String> getGroups() {
     List<String> groupsCopy = new ArrayList<>();

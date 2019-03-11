@@ -20,7 +20,7 @@
     </jsp:attribute>
         
    <jsp:attribute name="menu">
-            <a class="nav-item nav-link" href="<c:url value="/secure/RoomView"/>">Zurück zum Raum</a>  
+            <a class="nav-item nav-link" href="<c:url value="/secure/RoomView?id=${idr}"/>">Zurück zum Raum</a>  
     </jsp:attribute>
             
      <jsp:attribute name="content">       
@@ -60,9 +60,15 @@
                         <input type="text" class="form-control" name="description" value="${description}" readonly="readonly">
                     </div>
                     
-                    <a class="btn btn-success" href="#">
-                    <i class="icon-shopping-cart icon-large"></i> Checkout</a>
-                    
+                    <c:if test="${flag==true}">
+                        <button class="btn btn-success" name="button" value="like">
+                        <i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;Like</button>
+                        <p></p>
+                        <button class="btn btn-danger" name="button" value="dislike">
+                        <i class="fa fa-thumbs-down"></i>&nbsp;&nbsp;Dislike</button>    
+                        <p></p>
+                    </c:if>
+                        
                     <%-- Button zum Abschicken --%>
                     <div>
                         <button class="btn btn-primary" type="submit"  name="button" value="deleteIdea">Löschen</button>
