@@ -15,7 +15,8 @@ main{
     margin: 0;
 }
 #room_participants{
-    border-right: 1px solid grey;
+    padding: 2em;
+    background-color: rgba(255,255,255,0.5);
 }
 
 .card {
@@ -52,7 +53,7 @@ h2{
     background: grey;
 }
 
-.w-75 {
+body {
     background-image: url("/giftit/images/LoginBackground.jpg");
     background-size: cover;
 }

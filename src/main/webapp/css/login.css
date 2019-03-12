@@ -16,10 +16,6 @@ main {
     margin-top: 11.5%;
 }
 
-.bolt {
-    font-weight: bold;
-}
-
 .trans {
     padding: 2em;
     background-color: rgba(255,255,255,0.5);

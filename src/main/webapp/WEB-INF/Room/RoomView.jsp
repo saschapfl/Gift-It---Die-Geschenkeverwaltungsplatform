@@ -67,7 +67,7 @@
                     <h2 class = "pl-4">Teilnehmer</h2>
                         <ul class = "list-group list-group-flush">
                             <c:forEach items = "${participants}" var = "part">
-                                <li class = "list-group-item ">
+                                <li class = "list-group-item mb-2">
                                     ${part.username}
                                     <c:if test = "${owner}">
                                         <button type="submit" name = "button" value = "${part.username}" class="close ml-2" aria-label="Close">
