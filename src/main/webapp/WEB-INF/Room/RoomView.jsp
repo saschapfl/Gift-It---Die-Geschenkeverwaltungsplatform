@@ -86,7 +86,7 @@
                     <p>${warning}</p>
                     </form>
                  </div>
-                <div class="w-75 m-2">
+                <div class="w-75 m-2 ">
                     <c:choose>
                         <c:when test = "${empty entries}">
                             <p>

@@ -13,16 +13,19 @@
 <c:set var="base_url" value="<%=request.getContextPath()%>" />
 
 <template:base>
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+    </jsp:attribute>
     <jsp:attribute name="title">
         Registrieren
     </jsp:attribute>
     <jsp:attribute name="content">
-        <div class="container">
+        <div class="container border trans rounded">
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
                     <div class="form group">
-                        <label for="bname">Benutzername:*</label> 
+                        <label class="bolt" for="bname">Benutzername:*</label> 
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i></span>
@@ -31,7 +34,7 @@
                     </div>
                     </div>
                     <div class="form group">
-                         <label for="password1">Passwort:*</label>
+                         <label class="bolt" for="password1">Passwort:*</label>
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -40,7 +43,7 @@
                         <input type="password" class="form-control" name="password1" value="${Rforms.values["password1"][0]}" placeholder="Passwort eingeben" required>
                     </div>
                     <div class="form group">   
-                        <label for="password2">Passwort wiederholen:*</label>
+                        <label class="bolt" for="password2">Passwort wiederholen:*</label>
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">

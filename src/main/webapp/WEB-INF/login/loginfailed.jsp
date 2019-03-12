@@ -13,11 +13,14 @@
 <c:set var="base_url" value="<%=request.getContextPath()%>" />
 
 <template:base>
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+    </jsp:attribute>
     <jsp:attribute name="title">
             Login fehlerhaft!
     </jsp:attribute>
     <jsp:attribute name="content">
-        <div class="container">
+        <div class="container border trans rounded">
         <div class="form group">
             <label> Da ist etwas schief gegangen! <i class="fa fa-frown-o" aria-hidden="true"></i> </label>
             <div>

@@ -51,3 +51,8 @@ h2{
     margin-left: 2em;
     background: grey;
 }
+
+.w-75 {
+    background-image: url("/giftit/images/LoginBackground.jpg");
+    background-size: cover;
+}

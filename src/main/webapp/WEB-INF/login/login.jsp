@@ -12,17 +12,20 @@
 <c:set var="base_url" value="<%=request.getContextPath()%>" />
 
 <template:base>
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+    </jsp:attribute>
     <jsp:attribute name="title">
         Login
     </jsp:attribute>
     <jsp:attribute name="content">
-        <div class="container">
+        <div class="container border rounded trans">
             <form action="j_security_check" method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
                     <div class ="justify-content-center">                      
                         <div class="form group">
-                            <label for="j_username" required>Benutzername:</label>            
+                            <label class="bolt" for="j_username" required>Benutzername:</label>            
                         <div class = "input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-user"></i></span>
@@ -31,7 +34,7 @@
                         </div>
                         </div>
                         <div class ="form-group">
-                            <label for="j_password" required>Passwort:</label>                        
+                            <label class="bolt" for="j_password" required>Passwort:</label>                        
                         <div class = "input-group form-group">
                                 <div class="input-group-prepend">
                                      <span class="input-group-text"> <i class="fa fa-key"></i></span>
@@ -45,7 +48,7 @@
                     </div>
                 </div>
             </form>
-                <div class="d-flex justify-content-center links">Noch nicht registriert? Hier&nbsp;<a href="<c:url value="/signup/"/>">registrieren!</a></div>                            
+                <div class="d-flex justify-content-center links bolt">Noch nicht registriert? Hier&nbsp;<a href="<c:url value="/signup/"/>">registrieren!</a></div>                            
         </div>
     </jsp:attribute>
 </template:base>
