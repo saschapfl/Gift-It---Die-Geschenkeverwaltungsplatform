@@ -128,12 +128,12 @@ public class CreateRoomServlet extends HttpServlet {
                 Date deadline2 = format.parse(date);
                 Date now = new Date();
 
-                if(deadline1.compareTo(deadline2) > 0){
-                    error = "Die Deadline zum Sammeln von Ideen muss vor der Abstimmung stattfinden!";
+                if(deadline1.compareTo(deadline2) >= 0){
+                    error = "Die Deadline zum Sammeln von Ideen muss mindestens einen Tag vor der Bewertung stattfinden!";
                     response.sendRedirect(request.getContextPath() + "/secure/createRoom");
                 }
                 else if(deadline1.compareTo(now) < 0 || deadline2.compareTo(now) < 0){
-                    error = "Bist du etwa ein Zeitreisender? :O";
+                    error = "Die Deadlines dürfen frühestens einen Tag nach Erstellung des Raumes erfolgen";
                     response.sendRedirect(request.getContextPath() + "/secure/createRoom");
                 }
                 else{

@@ -15,11 +15,7 @@ main{
     margin: 0;
 }
 #room_participants{
-    background-color: lightgray;
-    border: 1px solid grey;
-    border-bottom-right-radius: 1.5em;
-    border-top-right-radius: 1.5em;
-   
+    border-right: 1px solid grey;
 }
 
 .card {
@@ -49,4 +45,9 @@ h2{
 }
 .fa fa-check{
     color: green;
+}
+.grey_row{
+    width: 95%;
+    margin-left: 2em;
+    background: grey;
 }

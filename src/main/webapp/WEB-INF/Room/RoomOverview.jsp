@@ -38,8 +38,8 @@
                                     <a class="list-group-item rooms" href ="<c:url value = "RoomView?id=${entry.id}"/>">
                                         <p>${entry.name}</p>
                                         <div class ="mx-auto">
-                                        <small><i class="fa fa-lightbulb-o"></i>&nbsp;: ${fn:length(entry.ideas)}</small>
-                                        <small><i class="fa fa-money"></i>&nbsp;: ${entry.budget}€</small>                          
+                                        <small class = "mr-2"><i class="fa fa-lightbulb-o"></i>&nbsp; Ideen: ${fn:length(entry.ideas)}</small>
+                                        <small><i class="fa fa-money"></i>&nbsp; Budget: ${entry.budget}€</small>                          
                                         </div>
                                     </a>
                                 </c:forEach>
