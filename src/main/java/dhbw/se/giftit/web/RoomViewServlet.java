@@ -195,7 +195,8 @@ public class RoomViewServlet extends HttpServlet {
         if (idli != 0) {
             ideaRatingBean.like(idli, request);
             response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
-        } else {
+        } 
+        if (iddi != 0 ){
             ideaRatingBean.dislike(iddi);
             response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
         }
