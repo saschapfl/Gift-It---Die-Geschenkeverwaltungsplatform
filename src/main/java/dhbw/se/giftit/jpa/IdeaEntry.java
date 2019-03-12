@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -36,7 +37,6 @@ public class IdeaEntry implements Serializable {
     private String price;
     private String description;
     private String link;
-    private String picture;
     
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserEntry> usersliked = new ArrayList<UserEntry>();
@@ -52,14 +52,13 @@ public class IdeaEntry implements Serializable {
     }
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     
-    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room, List<UserEntry> usersliked, List<UserEntry> usersdisliked){
+    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, RoomEntry room, List<UserEntry> usersliked, List<UserEntry> usersdisliked){
         this.like = like;
         this.dislike = dislike;
         this.name = name;
         this.price = price;
         this.description = description;
         this.link = link;
-        this.picture = picture;
         this.room = room;
         this.usersliked = usersliked;
     }
@@ -123,14 +122,6 @@ public class IdeaEntry implements Serializable {
     
     public void setLink(String link) {
         this.link = link;
-    }
-    
-    public String getPicture() {
-        return picture;
-    }
-    
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public List<UserEntry> getUsersDisliked() {

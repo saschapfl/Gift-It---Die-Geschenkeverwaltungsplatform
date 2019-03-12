@@ -52,13 +52,6 @@
                     </div>
                     
                      <div class="form-group col-md-6">
-                     <label for="picture">
-                        Bildpfad:
-                     </label>
-                         <input type="file" class="picture" name="upload" value="${Rforms.values["picture"][0]}">
-                    </div>
-                    
-                     <div class="form-group col-md-6">
                      <label for="description">
                         Beschreibung:
                          <span class="required">*</span>
