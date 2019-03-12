@@ -26,6 +26,40 @@
 
     
     <jsp:attribute name="content">
+        <div class ="container w-100 m-0 p-0 d-flex" id = "timeline">
+            <div class = "d-flex m-2">
+                <p>Heute</p>
+                <i class ="fa fa-check ml-2 mt-1"></i>              
+            </div>
+            <div class="progress w-50 m-2" style="height: 65%;">
+                <div  id="t1" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="${timeline1}"  aria-valuemin="0" aria-valuemax="100">${timelinetext1}</div>
+            </div>
+            <div class = "d-flex m-2">
+                <p>${deadline1}</p>
+                <c:choose>
+                    <c:when test = "${deadline1check}">
+                        <i class="fa fa-check ml-2 mt-1"></i>    
+                    </c:when>
+                    <c:otherwise>
+                        <i class="fa fa-lightbulb-o ml-2 mt-1"></i>   
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="progress w-50 m-2" style="height: 65%;">
+                <div  id="t2" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="${timeline2}"  aria-valuemin="0" aria-valuemax="100">${timelinetext2}</div>
+            </div>
+            <div class = "d-flex m-2">
+                <p>${deadline2}</p>
+                <c:choose>
+                    <c:when test = "${deadline2check}">
+                        <i class="fa fa-check ml-2 mt-1"></i>    
+                    </c:when>
+                    <c:otherwise>
+                        <i class="fa fa-bullseye ml-2 mt-1"></i>   
+                    </c:otherwise>
+                </c:choose>              
+            </div>
+        </div>
         <div class="container h-100 w-100 m-0 p-0 d-flex">
                 <div class ="w-25 h-100 m-0 p-4 " id="room_participants">
                     <form method ="post" class ="stacked">

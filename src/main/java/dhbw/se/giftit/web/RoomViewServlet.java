@@ -12,7 +12,9 @@ import dhbw.se.giftit.jpa.IdeaEntry;
 import dhbw.se.giftit.jpa.RoomEntry;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -59,7 +61,51 @@ public class RoomViewServlet extends HttpServlet {
         }
         else{
             List<IdeaEntry> roomideas = room.getIdeas();
-
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+            
+            Date now = new Date();
+            Date date1 = room.getDeadlineCollection();
+            Date date2 = room.getDeadlineRating();
+            
+            long diff1 = date1.getTime() - now.getTime();
+            long diff2 = date2.getTime() - now.getTime();
+            
+            long days1 =  diff1 / (1000*60*60*24) + 1;
+            long days2 =   diff2 / (1000*60*60*24) + 1;
+            
+            //Unterschiedliche Fälle für die Weite der Timeline
+            if(days2<= 0){
+                    request.setAttribute("timeline1", "width: 100%;");
+                    request.setAttribute("timeline2", "width: 100%;");
+                    request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
+                    request.setAttribute("timelinetext2", "Abstimmungsfrist erreicht"); 
+                    
+                    //Check Symbol
+                    request.setAttribute("deadline1check", "true");
+                    request.setAttribute("deadline2check", "true");
+            }else if(days1<=0){
+                    request.setAttribute("timeline1", "width: 100%;");
+                    request.setAttribute("timeline2", "width: " + (100-days2) + "%;");
+                    if(days2 > 100){
+                        request.setAttribute("timeline2", "width: 0%");
+                    }
+                    request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
+                    request.setAttribute("timelinetext2", "Noch " + days2 + " Tage");
+                    
+                    //Check Symbol
+                    request.setAttribute("deadline1check", "true");
+            }else{
+                    request.setAttribute("timeline1", "width: " + (100-days1) + "%;");
+                    request.setAttribute("timeline2", "width: 0%");
+                    if(days1 > 100){
+                        request.setAttribute("timeline1", "width: 0%");
+                    }
+                    request.setAttribute("timelinetext1", "Noch "  + days1 + " Tage");
+                    request.setAttribute("timelinetext2", "");   
+            }
+                    
+            request.setAttribute("deadline1", format.format(date1));
+            request.setAttribute("deadline2", format.format(date2));
             // Session holen und Ideas an jsp weiterleiten
             HttpSession session = request.getSession();
             session.setAttribute("entries", roomideas);

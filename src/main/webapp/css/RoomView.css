@@ -41,3 +41,12 @@ h2{
     width: 32%!important;
     font-size: 16pt;
 }
+#timeline{
+    height: 7%!important;
+}
+#t1, #t2{
+    color: white;
+}
+.fa fa-check{
+    color: green;
+}
