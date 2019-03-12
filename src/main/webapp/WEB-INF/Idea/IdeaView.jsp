@@ -47,13 +47,6 @@
                     </div>
                     
                     <div class="form-group col-md-6">
-                        <label for="picture">
-                         Bildpfad:
-                        </label>
-                        <input type="text" class="form-control" name="picture" value="${picture}" readonly="readonly">
-                    </div>
-                    
-                    <div class="form-group col-md-6">
                         <label for="description">
                           Beschreibung:
                         </label>

@@ -12,6 +12,8 @@ import dhbw.se.giftit.ejb.ValidationBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
 import dhbw.se.giftit.jpa.RoomEntry;
 import dhbw.se.giftit.jpa.UserEntry;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class CreateIdeaServlet extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String link = request.getParameter("link");
-        String picture = request.getParameter("upload");
+        
         String price = request.getParameter("price");
         String like = "0";
         String dislike = "0";
@@ -73,7 +75,7 @@ public class CreateIdeaServlet extends HttpServlet {
         List<UserEntry> usersdisliked = new ArrayList<>();
         long id = Long.parseLong(request.getParameter("id"));
         RoomEntry room = roombean.findRoom(id);
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture, room, usersliked, usersdisliked);
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, room, usersliked, usersdisliked);
         List<String> errors = this.validationBean.validate(idea);
 
         if (errors.isEmpty()) {
