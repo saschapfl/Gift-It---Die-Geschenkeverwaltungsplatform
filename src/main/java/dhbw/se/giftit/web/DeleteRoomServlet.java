@@ -27,6 +27,7 @@ public class DeleteRoomServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(request.getParameter("id"));
         roomBean.deleteRoom(Long.parseLong(request.getParameter("id")));
         response.sendRedirect(request.getContextPath() + "/secure/RoomOverview");

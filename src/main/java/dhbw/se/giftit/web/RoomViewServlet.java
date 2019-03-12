@@ -6,6 +6,7 @@
 package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
+import dhbw.se.giftit.ejb.IdeaRatingBean;
 import dhbw.se.giftit.ejb.RoomBean;
 import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
@@ -41,11 +42,15 @@ public class RoomViewServlet extends HttpServlet {
     @EJB
     UserBean userbean;
     
+    @EJB
+    IdeaRatingBean ideaRatingBean;
+    
     public static String warning;
    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
         //Warning setzen
         request.setAttribute("warning", warning);
         
@@ -124,53 +129,76 @@ public class RoomViewServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
+        request.setCharacterEncoding("UTF-8");
         warning = "";
         String buttonname = request.getParameter("button");
         UserEntry user= userbean.getUserByUname(buttonname);
         long id = Long.parseLong(request.getParameter("id"));
         RoomEntry room = roomBean.findRoom(id);
         List<UserEntry> users = room.getUsers();
-        if(buttonname.equals("add_user")){
-            UserEntry userToAdd = userbean.getUserByUname(request.getParameter("new_part"));
-            if(userToAdd == null){
-                warning = "Dieser Benutzer ist nicht vorhanden!";
-                response.sendRedirect(request.getRequestURI() + "?id=" + id);
-            }
-            else{
-                for(UserEntry ue : users){
-                    if(ue.getUsername().equals(userToAdd.getUsername())){
-                        warning = "Dieser Benutzer ist bereits im Raum!";
+        
+        if (buttonname != null ) {
+            if(buttonname.equals("add_user")){
+                UserEntry userToAdd = userbean.getUserByUname(request.getParameter("new_part"));
+                if(userToAdd == null){
+                    warning = "Dieser Benutzer ist nicht vorhanden!";
+                    response.sendRedirect(request.getRequestURI() + "?id=" + id);
+                }
+                else{
+                    for(UserEntry ue : users){
+                        if(ue.getUsername().equals(userToAdd.getUsername())){
+                            warning = "Dieser Benutzer ist bereits im Raum!";
+                            response.sendRedirect(request.getRequestURI() + "?id=" + id);
+                        }
+                    }
+                    //Wenn kein Fehler vorhanden ist, speichere den User im Raum
+                    if(warning.isEmpty()){
+                        users.add(userToAdd);
+                        room.setUsers(users);
+                        roomBean.updateRoom(room);
                         response.sendRedirect(request.getRequestURI() + "?id=" + id);
                     }
                 }
-                //Wenn kein Fehler vorhanden ist, speichere den User im Raum
-                if(warning.isEmpty()){
-                    users.add(userToAdd);
+            }
+            else{
+                if(users.get(0).getUsername().equals(user.getUsername())){
+                    warning = "Sie können sich selbst nicht aus dem Raum entfernen! Um den Raum zu löschen benutzen Sie bitte den Button 'Raum löschen'";              
+                    response.sendRedirect(request.getRequestURI() + "?id=" + id);
+                }
+                else{
+                    UserEntry deleted_user = null;
+                    for(UserEntry ue : users){
+                        if(ue.getUsername().equals(user.getUsername())){
+                            deleted_user = ue;
+                        }
+                    }
+                    users.remove(deleted_user);
                     room.setUsers(users);
                     roomBean.updateRoom(room);
+
                     response.sendRedirect(request.getRequestURI() + "?id=" + id);
                 }
             }
         }
-        else{
-            if(users.get(0).getUsername().equals(user.getUsername())){
-                warning = "Sie können sich selbst nicht aus dem Raum entfernen! Um den Raum zu löschen benutzen Sie bitte den Button 'Raum löschen'";              
-                response.sendRedirect(request.getRequestURI() + "?id=" + id);
-            }
-            else{
-                UserEntry deleted_user = null;
-                for(UserEntry ue : users){
-                    if(ue.getUsername().equals(user.getUsername())){
-                        deleted_user = ue;
-                    }
-                }
-                users.remove(deleted_user);
-                room.setUsers(users);
-                roomBean.updateRoom(room);
-
-                response.sendRedirect(request.getRequestURI() + "?id=" + id);
-            }
+        
+        long idli = 0;
+        long iddi = 0;
+        String idl = request.getParameter("like");
+        if (idl != null) {
+            idli = Long.parseLong(idl);
         }
-    }
+        String idd = request.getParameter("dislike");
+        if (idd != null) {
+            iddi = Long.parseLong(idd);
+        }
+
+        if (idli != 0) {
+            ideaRatingBean.like(idli, request);
+            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
+        } else {
+            ideaRatingBean.dislike(iddi);
+            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
+        }
+    }    
 
 }

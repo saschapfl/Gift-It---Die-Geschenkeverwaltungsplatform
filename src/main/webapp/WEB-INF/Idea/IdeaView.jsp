@@ -68,10 +68,15 @@
                         <i class="fa fa-thumbs-down"></i>&nbsp;&nbsp;Dislike</button>    
                         <p></p>
                     </c:if>
+                    <c:if test="${flag==false}">
+                        <button class="btn btn-success" name="button" value="remove">
+                        <i class="fa fa-eraser"></i>&nbsp;&nbsp;Bewertung abändern</button>
+                        <p></p>
+                    </c:if>
                         
                     <%-- Button zum Abschicken --%>
                     <div>
-                        <button class="btn btn-primary" type="submit"  name="button" value="deleteIdea">Löschen</button>
+                        <button class="btn btn-primary" type="submit"  name="button" value="deleteIdea"><i class="fa fa-trash"></i>&nbsp;&nbsp;Löschen</button>
                     </div>  
 
          </form>

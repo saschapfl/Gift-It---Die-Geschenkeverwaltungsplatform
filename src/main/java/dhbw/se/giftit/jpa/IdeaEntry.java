@@ -39,7 +39,10 @@ public class IdeaEntry implements Serializable {
     private String picture;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<UserEntry> users = new ArrayList<UserEntry>();
+    private List<UserEntry> usersliked = new ArrayList<UserEntry>();
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserEntry> usersdisliked = new ArrayList<UserEntry>();
     
     @ManyToOne
     private RoomEntry room = null;
@@ -49,7 +52,7 @@ public class IdeaEntry implements Serializable {
     }
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     
-    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room, List<UserEntry> users){
+    public IdeaEntry ( String like, String dislike, String name, String price, String description, String link, String picture, RoomEntry room, List<UserEntry> usersliked, List<UserEntry> usersdisliked){
         this.like = like;
         this.dislike = dislike;
         this.name = name;
@@ -58,7 +61,7 @@ public class IdeaEntry implements Serializable {
         this.link = link;
         this.picture = picture;
         this.room = room;
-        this.users = users;
+        this.usersliked = usersliked;
     }
 //</editor-fold>
 
@@ -129,13 +132,22 @@ public class IdeaEntry implements Serializable {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-    
-    public List<UserEntry> getUsers() {
-        return users;
+
+    public List<UserEntry> getUsersDisliked() {
+        return usersdisliked;
     }
 
-    public void setUsers(List<UserEntry> users) {
-        this.users = users;
+    public void setUsersDisliked(List<UserEntry> usersdisliked) {
+        this.usersdisliked = usersdisliked;
+    }
+    
+    
+    public List<UserEntry> getUsersLiked() {
+        return usersliked;
+    }
+
+    public void setUsersLiked(List<UserEntry> users) {
+        this.usersliked = users;
     }
     
 //</editor-fold>

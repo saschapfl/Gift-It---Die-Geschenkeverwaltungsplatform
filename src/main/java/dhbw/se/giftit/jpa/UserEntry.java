@@ -55,8 +55,11 @@ public class UserEntry implements Serializable {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     List<RoomEntry> raeume = new ArrayList<>();
     
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    List<IdeaEntry> idea = new ArrayList<>();
+    @ManyToMany(mappedBy = "usersliked", fetch = FetchType.EAGER)
+    List<IdeaEntry> idealiked = new ArrayList<>();
+    
+    @ManyToMany(mappedBy = "usersdisliked", fetch = FetchType.EAGER)
+    List<IdeaEntry> ideadisliked = new ArrayList<>();
     
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public UserEntry() {
@@ -87,13 +90,22 @@ public class UserEntry implements Serializable {
         this.raeume = raeume;
     }
 
-    public List<IdeaEntry> getIdea() {
-        return idea;
+    public List<IdeaEntry> getIdeaLiked() {
+        return idealiked;
     }
 
-    public void setIdea(List<IdeaEntry> idea) {
-        this.idea = idea;
+    public void setIdeaLiked (List<IdeaEntry> idea) {
+        this.idealiked = idea;
     }
+
+    public List<IdeaEntry> getIdeadisliked() {
+        return ideadisliked;
+    }
+
+    public void setIdeadisliked(List<IdeaEntry> ideadisliked) {
+        this.ideadisliked = ideadisliked;
+    }
+    
     
 
     public List<String> getGroups() {

@@ -63,7 +63,7 @@
                         Beschreibung:
                          <span class="required">*</span>
                      </label>
-                       <input type="text" class="form-control" name="description" value="${Rforms.values["description"][0]}">
+                       <input type="text" class="form-control" name="description" value="${Rforms.values["description"][0]}" required>
                     </div>
                     
                     <%-- Button zum Abschicken --%>

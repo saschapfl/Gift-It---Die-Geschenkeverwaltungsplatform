@@ -50,5 +50,7 @@ public class IdeaBean {
         return em.merge(idea);
     }
 //</editor-fold>
+    
+    
 
 }

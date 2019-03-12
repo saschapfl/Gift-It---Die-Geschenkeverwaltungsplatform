@@ -69,10 +69,11 @@ public class CreateIdeaServlet extends HttpServlet {
         String price = request.getParameter("price");
         String like = "0";
         String dislike = "0";
-        List<UserEntry> users = new ArrayList<>();
+        List<UserEntry> usersliked = new ArrayList<>();
+        List<UserEntry> usersdisliked = new ArrayList<>();
         long id = Long.parseLong(request.getParameter("id"));
         RoomEntry room = roombean.findRoom(id);
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture, room, users);
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, picture, room, usersliked, usersdisliked);
         List<String> errors = this.validationBean.validate(idea);
 
         if (errors.isEmpty()) {

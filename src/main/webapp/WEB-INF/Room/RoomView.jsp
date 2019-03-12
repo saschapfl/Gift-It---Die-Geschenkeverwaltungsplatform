@@ -101,10 +101,13 @@
                                                     <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                <small class="text-muted"><a>${entry.like}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></small>
-                                                <small class="test-muted"><a>${entry.dislike}</a>&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></small>
+                                                    <form method="post">
+                                                       <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
+                                                       <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
+                                                    </form>
                                                 </div>
-                                            </div>
+                                                 <small class="text-muted"> ${error} </small> 
+                                    </div>
                                 </c:forEach>
                         </c:otherwise>
                     </c:choose>

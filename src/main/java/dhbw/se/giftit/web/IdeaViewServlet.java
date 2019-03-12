@@ -5,6 +5,7 @@
  */
 package dhbw.se.giftit.web;
 
+import dhbw.se.giftit.ejb.IdeaRatingBean;
 import dhbw.se.giftit.ejb.IdeaBean;
 import dhbw.se.giftit.ejb.RoomBean;
 import dhbw.se.giftit.ejb.UserBean;
@@ -37,6 +38,9 @@ RoomBean roomBean;
  @EJB
  UserBean userBean;
  
+ @EJB
+ IdeaRatingBean ideaRatingBean;
+ 
  IdeaEntry idea = new IdeaEntry();
  
 
@@ -54,25 +58,18 @@ RoomBean roomBean;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-      
+        request.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(request.getParameter("id"));
         idea = ideaBean.findIdea(id);
         long idr = idea.getRoom().getId();   
         
         UserEntry user = userBean.getUser();
         String uname = user.getUsername();
-        List<UserEntry> listusers = idea.getUsers();
+        List<UserEntry> listusersliked = idea.getUsersLiked();
+        List<UserEntry> listusersdisliked = idea.getUsersDisliked();
         
         // schauen ob User bereits gevotet hat und flag setzten
-        String flag = "true";
-        if (listusers.size()>0) {
-            for(UserEntry acc: listusers) {
-                if (uname.equals(acc.getUsername())) {
-                    flag = "false";
-                    break;
-                } 
-            }
-        }
+        String flag = ideaRatingBean.watchUserInList(id);
         
         
         HttpSession session = request.getSession();
@@ -93,64 +90,33 @@ RoomBean roomBean;
         
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
         RoomEntry room = new RoomEntry();
         long idr = idea.getRoom().getId();
         String button = request.getParameter("button");
-        
         long id = Long.parseLong(request.getParameter("id"));
-        idea = ideaBean.findIdea(id);
-        UserEntry user = userBean.getUser();
-        String uname = user.getUsername();
-        List<UserEntry> listusers = idea.getUsers();
+
         
         switch (button) {
             case "deleteIdea":
                 ideaBean.deleteIdea(Long.parseLong(request.getParameter("id")));
                 response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + idr);
                 break;
-            case "like":                       
-                // User Liste holen und mit aktuellen User füllen
-                listusers.add(user);
-                idea.setUsers(listusers);
-                // Like's holen und eins hochzählen
-                String like = idea.getLike();
-                int likes = Integer.parseInt(like);
-                likes = likes + 1;
-                like = Integer.toString(likes);
-                idea.setLike(like);
-                // IdeaObject einmal updaten
-                ideaBean.updateIdea(idea); 
-                // Auf Seite redirecten
+            case "like": 
+                ideaRatingBean.like(id, request);
                 response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
                 break;
             case "dislike":
-                // User Liste holen und mit aktuellen User füllen
-                List<UserEntry> users = idea.getUsers();
-                users.add(user);
-                idea.setUsers(users);
-                // Dislikes's holen und eins hochzählen
-                String dislike = idea.getDislike();
-                int dislikes = Integer.parseInt(dislike);
-                dislikes = dislikes + 1;
-                dislike = Integer.toString(dislikes);
-                idea.setLike(dislike);
-                // IdeaObject einmal updaten
-                ideaBean.updateIdea(idea); 
-                // Auf Seite redirecten
+                ideaRatingBean.dislike(id);
                 response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
                 break; 
+            case "remove":
+                ideaRatingBean.removeRating(id);
+                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
             } 
         
         }

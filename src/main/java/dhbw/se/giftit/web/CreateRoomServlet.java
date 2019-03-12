@@ -49,7 +49,8 @@ public class CreateRoomServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {           
+            throws ServletException, IOException {  
+        request.setCharacterEncoding("UTF-8");
          // Anfrage an dazugerhörige JSP weiterleiten
         request.setAttribute("participants", allParticipants);
         request.setAttribute("error", error);
@@ -63,6 +64,7 @@ public class CreateRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
+        request.setCharacterEncoding("UTF-8");
         //Grundsätzliches (gedrückten button abfragen und Formulardaten speichern)
        String buttonname = request.getParameter("button");
        form_data.clear();
