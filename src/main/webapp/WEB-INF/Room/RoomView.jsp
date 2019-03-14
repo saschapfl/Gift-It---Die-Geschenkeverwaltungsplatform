@@ -26,7 +26,32 @@
 
     
     <jsp:attribute name="content">
-        <div class ="container w-100 mt-2 p-0 d-flex" id = "timeline">
+          
+        <div class ="container w-80 mt-2 p-0 d-flex" id = "timeline">
+            <button type="button" class="ghost_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@money">Aktuelles Budget: ${entry.budget}€</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalLabel">Budget eingeben</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                             </button>
+                        </div>
+                        <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="budget" class="col-form-label">Budget:</label>
+                                    <input type="text" class="form-control" id="budget">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
             <div class = "d-flex m-2">
                 <p>Heute</p>
                 <i class ="fa fa-check ml-2 mt-1"></i>              

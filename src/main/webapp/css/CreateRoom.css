@@ -24,3 +24,8 @@ body{
 .turn:hover{
     transform: rotate(360deg);
 }
+
+.trans{
+    padding: 1em;
+    background-color: rgba(255,255,255,0.5);
+}

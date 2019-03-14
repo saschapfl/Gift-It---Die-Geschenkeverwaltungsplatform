@@ -24,6 +24,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
+         <div class="container border rounded trans">
         <div class="container">
             <form method="post" class="stacked">
                 <div class="column">
@@ -80,5 +81,6 @@
                 </div>
             </form>
         </div>
+         </div>
     </jsp:attribute>
 </template:base>
