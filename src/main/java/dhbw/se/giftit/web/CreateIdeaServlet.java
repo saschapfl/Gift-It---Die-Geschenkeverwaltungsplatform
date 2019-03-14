@@ -47,7 +47,7 @@ public class CreateIdeaServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/CreateIdea.jsp");
         dispatcher.forward(request, response);
@@ -61,7 +61,7 @@ public class CreateIdeaServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
        
 
         String name = request.getParameter("name");

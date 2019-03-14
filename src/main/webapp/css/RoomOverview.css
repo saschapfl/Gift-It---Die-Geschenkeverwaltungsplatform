@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : spfli
 */
 body{
-    background-image: url("/giftit/images/background.jpg")!important;
+    background-image: url("/giftit/images/roomview.jpg")!important;
     background-size: cover;
 }
 .rooms{
