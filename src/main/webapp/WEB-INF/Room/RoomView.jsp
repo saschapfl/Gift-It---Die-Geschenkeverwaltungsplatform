@@ -139,21 +139,21 @@
                         <c:otherwise>
                                 <c:forEach items = "${entries}" var = "entry">
                                     <div class="card">
-                                                <img scr= />
-                                                <div class="card-body">   
-                                                    <h5 class="card-title"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a></h5>
-                                                    <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
-                                                </div>
-                                                <c:if test = "${deadline1check && !deadline2check}">
-                                                    <div class="card-footer">
-                                                        <form method="post">
-                                                           <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
-                                                           <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
-                                                        </form>
-                                                    </div>
-                                                
-                                                    <small class="text-muted"> ${error} </small> 
-                                                 </c:if>
+                                        <img scr= />
+                                        <div class="card-body">   
+                                            <h5 class="card-title"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a></h5>
+                                            <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
+                                        </div>
+                                        <c:if test = "${deadline1check && !deadline2check}">
+                                            <div class="card-footer">
+                                                <form method="post">
+                                                   <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
+                                                   <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
+                                                   <small class="text-muted">&nbsp;<button id="revert" title="Bewertung abändern" type="submit" name="revert" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-eraser"></button></i></small>
+                                                </form>
+                                            </div>
+                                            <small class="text-muted"> ${error} </small> 
+                                         </c:if>
                                     </div>
                                 </c:forEach>
                         </c:otherwise>

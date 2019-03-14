@@ -13,10 +13,14 @@ import dhbw.se.giftit.jpa.IdeaEntry;
 import dhbw.se.giftit.jpa.RoomEntry;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,6 +76,13 @@ public class RoomViewServlet extends HttpServlet {
             Date now = new Date();
             Date date1 = room.getDeadlineCollection();
             Date date2 = room.getDeadlineRating();
+            // Testdatum
+            Date date3 = null;
+            try {
+                date3 = format.parse("10.02.2019");
+            } catch (ParseException ex) {
+                Logger.getLogger(RoomViewServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             long diff1 = date1.getTime() - now.getTime();
             long diff2 = date2.getTime() - now.getTime();
@@ -78,8 +90,27 @@ public class RoomViewServlet extends HttpServlet {
             long days1 =  diff1 / (1000*60*60*24) + 1;
             long days2 =   diff2 / (1000*60*60*24) + 1;
             
+            //Wenn DeadLineRating abgeschlossen nur noch beste Idea anzeigen
+            if (now.compareTo(date3)>=0) {
+ 
+            } 
+            
             //Unterschiedliche Fälle für die Weite der Timeline
             if(days2<= 0){
+                    // Nur noch die best bewertete Idee anzeigen
+                    IdeaEntry bestIdea = roomideas.get(0);
+                    for(IdeaEntry entry: roomideas) {
+                        if ( ( Integer.parseInt(entry.getLike())-Integer.parseInt(entry.getDislike()))>(Integer.parseInt(bestIdea.getLike())- Integer.parseInt(bestIdea.getDislike()))) {
+                            IdeaEntry bestIdea2 = bestIdea;
+                            bestIdea = entry;
+                            ideaBean.deleteIdea(bestIdea2.getId());
+                        }       
+                    }
+                    roomideas.clear();
+                    roomideas.add(bestIdea);
+                    room.setIdeas(roomideas);
+                    roomBean.updateRoom(room);
+                    // Timeline anpassen
                     request.setAttribute("timeline1", "width: 100%;");
                     request.setAttribute("timeline2", "width: 100%;");
                     request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
@@ -130,6 +161,14 @@ public class RoomViewServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         request.setCharacterEncoding("UTF-8");
+        // id für likes als Long
+        long idli = 0;
+        // id für dislikes als Long
+        long iddi = 0;
+        // id für Bewertung ändern als Long
+        long idre = 0;
+        // id für löschen als Long
+        long idde = 0;
         warning = "";
         String buttonname = request.getParameter("button");
         UserEntry user= userbean.getUserByUname(buttonname);
@@ -181,15 +220,21 @@ public class RoomViewServlet extends HttpServlet {
             }
         }
         
-        long idli = 0;
-        long iddi = 0;
-        String idl = request.getParameter("like");
-        if (idl != null) {
-            idli = Long.parseLong(idl);
+        String idlike = request.getParameter("like");
+        if (idlike != null) {
+            idli = Long.parseLong(idlike);
         }
-        String idd = request.getParameter("dislike");
-        if (idd != null) {
-            iddi = Long.parseLong(idd);
+        String iddislike = request.getParameter("dislike");
+        if (iddislike != null) {
+            iddi = Long.parseLong(iddislike);
+        }
+        String idrevert = request.getParameter("revert");
+        if (idrevert != null ) {
+            idre = Long.parseLong(idrevert);
+        }
+        String iddelete = request.getParameter("delete");
+        if (iddelete != null ) {
+            idde = Long.parseLong(iddelete);
         }
 
         if (idli != 0) {
@@ -200,6 +245,15 @@ public class RoomViewServlet extends HttpServlet {
             ideaRatingBean.dislike(iddi);
             response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
         }
+        if (idre != 0 ){
+            ideaRatingBean.removeRating(idre);
+            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
+        }
+        if (idde != 0 ){
+            ideaBean.deleteIdea(idde);
+            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
+        }
+
     }    
 
 }

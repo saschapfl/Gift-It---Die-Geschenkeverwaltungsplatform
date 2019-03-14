@@ -52,20 +52,6 @@
                         </label>
                         <input type="text" class="form-control" name="description" value="${description}" readonly="readonly">
                     </div>
-                    
-                    <c:if test="${flag==true}">
-                        <button class="btn btn-success" name="button" value="like">
-                        <i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;Like</button>
-                        <p></p>
-                        <button class="btn btn-danger" name="button" value="dislike">
-                        <i class="fa fa-thumbs-down"></i>&nbsp;&nbsp;Dislike</button>    
-                        <p></p>
-                    </c:if>
-                    <c:if test="${flag==false}">
-                        <button class="btn btn-success" name="button" value="remove">
-                        <i class="fa fa-eraser"></i>&nbsp;&nbsp;Bewertung abändern</button>
-                        <p></p>
-                    </c:if>
                         
                     <%-- Button zum Abschicken --%>
                     <div>

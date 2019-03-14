@@ -44,8 +44,8 @@ public class IdeaEntry implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserEntry> usersdisliked = new ArrayList<UserEntry>();
     
-    @ManyToOne
-    private RoomEntry room = null;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RoomEntry room;
             
     public IdeaEntry (){
         
@@ -142,6 +142,7 @@ public class IdeaEntry implements Serializable {
     }
     
 //</editor-fold>
+
 
 
     
