@@ -12,7 +12,17 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Raumansicht
+        <c:choose>
+            <c:when test = "${deadline2check}">
+                Raumansicht - Geschenk gefunden!
+            </c:when>
+            <c:when test = "${deadline1check}">
+                Raumansicht - Bewertungsphase
+            </c:when>
+            <c:otherwise>
+                Raumansicht - Sammlungsphase
+            </c:otherwise>
+        </c:choose>
     </jsp:attribute>
         
     <jsp:attribute name="head">
@@ -20,8 +30,13 @@
     </jsp:attribute>
    
     <jsp:attribute name="menu">
-            <a class="nav-item nav-link" href="<c:url value="/secure/CreateIdea?id=${id}"/>">Idee erstellen</a>  
-            <a class="nav-item nav-link" href="<c:url value="/secure/deleteRoom?id=${id}"/>">Raum löschen</a>
+            <a class="nav-item nav-link" href="<c:url value="/secure/RoomOverview"/>">Zurück zur Übersicht</a>
+            <c:if test = "${!deadline1check}">
+                <a class="nav-item nav-link" href="<c:url value="/secure/CreateIdea?id=${id}"/>">Idee erstellen</a>  
+            </c:if>
+            <c:if test = "${owner}"> 
+                <a class="nav-item nav-link" href="<c:url value="/secure/deleteRoom?id=${id}"/>">Raum löschen</a>
+            </c:if>
     </jsp:attribute>
 
     
@@ -88,6 +103,9 @@
                  </div>
                 <div class="w-75 m-2 ">
                     <c:choose>
+                        <c:when test = "${empty entries && deadline1check}">
+                                Leider wurde keine Idee gesammelt. Löschen Sie diesen Raum und erstellen Sie einen neuen, um erneut nach einem Geschenk zu suchen!
+                        </c:when>
                         <c:when test = "${empty entries}">
                             <p>
                                 Der Raum hat keine Ideen, legen Sie Ideen an, um mit Ihren Freunden über ein Geschenk abstimmen zu können!
@@ -101,13 +119,16 @@
                                                     <h5 class="card-title"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a></h5>
                                                     <p class="card-text"> <a href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a></p>
                                                 </div>
-                                                <div class="card-footer">
-                                                    <form method="post">
-                                                       <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
-                                                       <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
-                                                    </form>
-                                                </div>
-                                                 <small class="text-muted"> ${error} </small> 
+                                                <c:if test = "${deadline1check && !deadline2check}">
+                                                    <div class="card-footer">
+                                                        <form method="post">
+                                                           <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
+                                                           <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
+                                                        </form>
+                                                    </div>
+                                                
+                                                    <small class="text-muted"> ${error} </small> 
+                                                 </c:if>
                                     </div>
                                 </c:forEach>
                         </c:otherwise>
