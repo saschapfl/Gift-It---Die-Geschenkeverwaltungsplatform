@@ -59,6 +59,9 @@ public class RoomViewServlet extends HttpServlet {
         //Warning setzen
         request.setAttribute("warning", warning);
         
+        // aktuellen User holen
+        String user = userbean.getUser().getUsername();
+        request.setAttribute("user", user);
         // Room und Ideas zu Room holen
         String sid = request.getParameter("id");
         long id = Long.parseLong(sid);

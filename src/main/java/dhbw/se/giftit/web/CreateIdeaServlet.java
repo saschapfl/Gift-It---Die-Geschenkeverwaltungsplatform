@@ -37,6 +37,8 @@ public class CreateIdeaServlet extends HttpServlet {
     @EJB
     IdeaBean ideaBean;
     
+    @EJB
+    UserBean userBean;
     
     @EJB
     RoomBean roombean;
@@ -73,9 +75,10 @@ public class CreateIdeaServlet extends HttpServlet {
         String dislike = "0";
         List<UserEntry> usersliked = new ArrayList<>();
         List<UserEntry> usersdisliked = new ArrayList<>();
+        String uname = userBean.getUser().getUsername();
         long id = Long.parseLong(request.getParameter("id"));
         RoomEntry room = roombean.findRoom(id);
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, room, usersliked, usersdisliked);
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, room, usersliked, usersdisliked, uname);
         List<String> errors = this.validationBean.validate(idea);
 
         if (errors.isEmpty()) {

@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 08.03.2019, 14:22:13
     Author     : spfli
 */
@@ -20,11 +20,11 @@ main{
 }
 
 .card {
-  float: left;
-  width: 45%;
-  display: flex;
-  margin: 2%;
-  margin-left: 3%;
+    float: left;
+    width: 45%;
+    display: flex;
+    margin: 2%;
+    margin-left: 3%;
 }
 
 
@@ -60,5 +60,20 @@ body {
 
 #revert {
     position: absolute;
+    right: 3%;
+}
+
+#delete {
+    position: absolute;
     right: 5%;
+    top: 10%;
+}
+
+.card-title:hover, .card-text:hover {
+    text-decoration: none;
+}
+
+.test {
+    width: 0px;
+    height: 0px;
 }
