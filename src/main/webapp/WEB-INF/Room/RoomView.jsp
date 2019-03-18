@@ -43,7 +43,7 @@
     <jsp:attribute name="content">
 
         <div class ="container w-80 mt-2 p-0 d-flex" id = "timeline">
-            <button type="button" class="ghost_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@money">Aktuelles Budget: ${entry.budget}€</button>
+            <button type="button" class="ghost_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@money">Aktuelles Budget: ${budget}€</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -53,17 +53,28 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="budget" class="col-form-label">Budget:</label>
-                                    <input type="text" class="form-control" id="budget">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
-                        </div>
+                        <form method = "post" class = "stacked">
+                            <div class="modal-body">
+                                <label for="budget" class="col-form-label">Individuelles Budget:</label>
+                                <input type="number" step ="0.01" name ="budget" id="budget" value = "${user_budget}" oninput="check(this)">
+                                <br>
+                                <p>${budget_error}</p>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" value = "add_budget" name = "button" class="btn btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                        <script>
+                            function check(input) {
+                                if (input.value <= 0) {
+                                    input.setCustomValidity('Ihr Budget muss größer als 0 sein!');
+                                } else {
+                                    // input is fine -- reset the error message
+                                    input.setCustomValidity('');
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -109,6 +120,11 @@
                         <c:forEach items = "${participants}" var = "part">
                             <li class = "list-group-item mb-2">
                                 ${part.username}
+                                <c:forEach items = "${users_payed}" var = "user_payed">
+                                    <c:if test = "${user_payed eq part.username}">
+                                        <i class="fa fa-usd"></i>
+                                    </c:if>
+                                </c:forEach>
                                 <c:if test = "${owner}">
                                     <button type="submit" name = "button" value = "${part.username}" class="close ml-2" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -144,7 +160,7 @@
                                         <a class="card-title" href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.name}</a>
                                         <c:if test = "${entry.user==user}">
                                             <button id="delete" data-toggle="modal" data-target="#deleteModal" title="Löschen" class="btn btn-light btn-sm"> <i class="fa fa-trash"></i></button>
-                                        </c:if>
+                                            </c:if>
                                     </div>
                                     <a class="card-text"href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a>
                                 </div>

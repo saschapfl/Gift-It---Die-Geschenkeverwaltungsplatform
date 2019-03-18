@@ -39,7 +39,7 @@
                                         <p>${entry.name}</p>
                                         <div class ="mx-auto">
                                         <small class = "mr-2"><i class="fa fa-lightbulb-o"></i>&nbsp; Ideen: ${fn:length(entry.ideas)}</small>
-                                        <small><i class="fa fa-money"></i>&nbsp; Budget: ${entry.budget}€</small>                          
+                                        <small><i class="fa fa-money"></i>&nbsp; Budget: ${entry.entireBudget}€</small>                          
                                         </div>
                                     </a>
                                 </c:forEach>
