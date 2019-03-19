@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08.03.2019, 08:57:14
+    Author     : Viktoria
+*/
+body {
+    background-image: url("/giftit/images/LoginBackground.jpg");
+    background-size: cover;
+}
+.form-group{
+    display: block;
+    margin-left: 25%;
+}
+
+.btn{
+    margin-left: 26%;
+}
+
+.trans{
+    padding: 1em;
+    background-color: rgba(255,255,255,0.5);
+}

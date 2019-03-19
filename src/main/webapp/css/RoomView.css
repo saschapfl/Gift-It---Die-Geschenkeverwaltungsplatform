@@ -1,0 +1,79 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 08.03.2019, 14:22:13
+    Author     : spfli
+*/
+
+html, body, main{
+    height: 100%;
+}
+main{
+    margin: 0;
+}
+#room_participants{
+    padding: 2em;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.card {
+    float: left;
+    width: 45%;
+    display: flex;
+    margin: 2%;
+    margin-left: 3%;
+}
+
+
+h2{
+    font-weight: bold;
+}
+#add_user{
+    height: 100%!important;
+}
+#add_user_btn{
+    width: 32%!important;
+    font-size: 16pt;
+}
+#timeline{
+    height: 7%!important;
+}
+#t1, #t2{
+    color: white;
+}
+.fa fa-check{
+    color: green;
+}
+.grey_row{
+    width: 95%;
+    margin-left: 2em;
+    background: grey;
+}
+
+body {
+    background-image: url("/giftit/images/roomview.jpg");
+    background-size: cover;
+}
+
+#revert {
+    position: absolute;
+    right: 3%;
+}
+
+#delete {
+    position: absolute;
+    right: 5%;
+    top: 10%;
+}
+
+.card-title:hover, .card-text:hover {
+    text-decoration: none;
+}
+
+.test {
+    width: 0px;
+    height: 0px;
+}

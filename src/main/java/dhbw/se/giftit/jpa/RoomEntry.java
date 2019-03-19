@@ -6,13 +6,22 @@
 package dhbw.se.giftit.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -23,30 +32,36 @@ import javax.persistence.OneToMany;
 public class RoomEntry implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
-    
+
+    private String name;
     private Date deadlineCollection;
     private Date deadlineRating;
-    private int budget;
-    private UserEntry purchaser;
-    
-    @ManyToMany(mappedBy = "raueme")
-    private List<UserEntry> users;
-    
-    @OneToMany
-    private List<IdeaEntry> ideas;
-    
+    private double entireBudget = 0.0;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserEntry> users = new ArrayList<UserEntry>();
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    private List<IdeaEntry> ideas = new ArrayList<IdeaEntry>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "BUDGET_COLLECTION")
+    @MapKeyColumn(name = "BUDGET_USER")
+    @Column(name = "BUDGET_BUDGET")
+    Map<String, Double> budget = new HashMap<>();
+
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
-    public RoomEntry(){
-        
+    public RoomEntry() {
+
     }
-    
-    public RoomEntry(Date deadlineCollection, Date deadlineRating, int budget, UserEntry purchaser, List<UserEntry> users){
+
+    public RoomEntry(String name, Date deadlineCollection, Date deadlineRating, HashMap<String, Double> budget, List<UserEntry> users) {
+        this.name = name;
         this.deadlineCollection = deadlineCollection;
         this.deadlineRating = deadlineRating;
         this.budget = budget;
-        this.purchaser = purchaser;
         this.users = users;
     }
 //</editor-fold>
@@ -55,60 +70,68 @@ public class RoomEntry implements Serializable {
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
-    public Date getDeadlineCollection(){
+
+    public Date getDeadlineCollection() {
         return deadlineCollection;
     }
-    
-    public void setDeadlineCollection(Date deadlineCollection){
+
+    public void setDeadlineCollection(Date deadlineCollection) {
         this.deadlineCollection = deadlineCollection;
     }
-    
-    public Date getDeadlineRating(){
+
+    public Date getDeadlineRating() {
         return deadlineRating;
     }
-    
-    public void setDeadlineRating(Date deadlineRating){
+
+    public void setDeadlineRating(Date deadlineRating) {
         this.deadlineRating = deadlineRating;
     }
-    
-    public int getBudget(){
+
+    public Map<String, Double> getBudget() {
         return budget;
     }
-    
-    public void setBudget(int budget){
+
+    public void setBudget(HashMap<String, Double> budget) {
         this.budget = budget;
     }
-    
-    public UserEntry getPurchaser(){
-        return purchaser;
-    }
-    
-    public void setPurchaser(UserEntry purchaser){
-        this.purchaser = purchaser;
-    }
-    
-    public List<UserEntry> getUsers(){
+
+    public List<UserEntry> getUsers() {
         return users;
     }
-    
-    public void setUsers(List<UserEntry> users){
+
+    public void setUsers(List<UserEntry> users) {
         this.users = users;
     }
-    
-    public List<IdeaEntry> getIdeas(){
+
+    public List<IdeaEntry> getIdeas() {
         return ideas;
     }
-    
-    public void setIdeas(List<IdeaEntry> ideas){
+
+    public void setIdeas(List<IdeaEntry> ideas) {
         this.ideas = ideas;
     }
-//</editor-fold>
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getEntireBudget() {
+        return entireBudget;
+    }
+
+    public void setEntireBudget(double entireBudget) {
+        this.entireBudget = entireBudget;
+    }
+
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Auto-Generierter Kram">
     @Override
     public boolean equals(Object object) {
@@ -123,5 +146,9 @@ public class RoomEntry implements Serializable {
         return true;
     }
 //</editor-fold>
-    
+
+    public void addUserToRoom(UserEntry user) {
+        this.users.add(user);
+    }
+
 }
