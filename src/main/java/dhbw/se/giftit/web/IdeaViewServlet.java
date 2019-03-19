@@ -5,7 +5,6 @@
  */
 package dhbw.se.giftit.web;
 
-import dhbw.se.giftit.ejb.IdeaRatingBean;
 import dhbw.se.giftit.ejb.IdeaBean;
 import dhbw.se.giftit.ejb.RoomBean;
 import dhbw.se.giftit.ejb.UserBean;
@@ -31,18 +30,14 @@ import static jdk.nashorn.internal.runtime.Debug.id;
 @WebServlet(name = "IdeaViewServlet", urlPatterns = {"/secure/IdeaView"})
 public class IdeaViewServlet extends HttpServlet {
 
- @EJB
- IdeaBean ideaBean;
- @EJB
-RoomBean roomBean;
- @EJB
- UserBean userBean;
- 
- @EJB
- IdeaRatingBean ideaRatingBean;
- 
- IdeaEntry idea = new IdeaEntry();
- 
+    @EJB
+    IdeaBean ideaBean;
+    @EJB
+    RoomBean roomBean;
+    @EJB
+    UserBean userBean;
+
+    IdeaEntry idea = new IdeaEntry();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -54,75 +49,48 @@ RoomBean roomBean;
      * @throws IOException if an I/O error occurs
      */
 //    @Override
- @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(request.getParameter("id"));
         idea = ideaBean.findIdea(id);
-        long idr = idea.getRoom().getId();   
-        
+        long idr = idea.getRoom().getId();
+
         UserEntry user = userBean.getUser();
         String uname = user.getUsername();
-        List<UserEntry> listusersliked = idea.getUsersLiked();
-        List<UserEntry> listusersdisliked = idea.getUsersDisliked();
-        
-        // schauen ob User bereits gevotet hat und flag setzten
-        String flag = ideaRatingBean.watchUserInList(id);
-        
-        
+
         HttpSession session = request.getSession();
-        session.setAttribute("flag", flag);
         session.setAttribute("idr", idr);
         session.setAttribute("idea_name", idea.getName());
         session.setAttribute("price", idea.getPrice());
         session.setAttribute("link", idea.getLink());
         session.setAttribute("description", idea.getDescription());
-        
-        
-        
-       // Anfrage an dazugerhörige JSP weiterleiten
+
+        // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/IdeaView.jsp");
         dispatcher.forward(request, response);
-        
-        
-        
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         RoomEntry room = new RoomEntry();
         long idr = idea.getRoom().getId();
         String button = request.getParameter("button");
         long id = Long.parseLong(request.getParameter("id"));
 
-        
         switch (button) {
             case "deleteIdea":
                 ideaBean.deleteIdea(Long.parseLong(request.getParameter("id")));
-                response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + idr);
+                response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + idr);
                 break;
-            case "like": 
-                ideaRatingBean.like(id, request);
-                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
-                break;
-            case "dislike":
-                ideaRatingBean.dislike(id);
-                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
-                break; 
-            case "remove":
-                ideaRatingBean.removeRating(id);
-                response.sendRedirect(request.getContextPath() +  "/secure/IdeaView?id=" + id);
-            } 
-        
         }
-    
+
     }
 
-
-
-
+}

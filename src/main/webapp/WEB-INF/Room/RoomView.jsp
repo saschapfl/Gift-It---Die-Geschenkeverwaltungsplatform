@@ -169,7 +169,6 @@
                                         <form method="post">
                                             <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></button></i></small>
                                             <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></button></i></small>
-                                            <small class="text-muted">&nbsp;<button id="revert" title="Bewertung abändern" type="submit" name="revert" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-eraser"></button></i></small>
                                         </form>
                                     </c:if>
                                 </div>

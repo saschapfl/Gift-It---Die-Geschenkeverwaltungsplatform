@@ -6,7 +6,6 @@
 package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.IdeaBean;
-import dhbw.se.giftit.ejb.IdeaRatingBean;
 import dhbw.se.giftit.ejb.RoomBean;
 import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.jpa.IdeaEntry;
@@ -45,9 +44,6 @@ public class RoomViewServlet extends HttpServlet {
 
     @EJB
     UserBean userbean;
-
-    @EJB
-    IdeaRatingBean ideaRatingBean;
 
     public static String warning;
 
@@ -103,7 +99,7 @@ public class RoomViewServlet extends HttpServlet {
                 // Nur noch die best bewertete Idee anzeigen
                 IdeaEntry bestIdea = roomideas.get(0);
                 for (IdeaEntry entry : roomideas) {
-                    if ((Integer.parseInt(entry.getLike()) - Integer.parseInt(entry.getDislike())) > (Integer.parseInt(bestIdea.getLike()) - Integer.parseInt(bestIdea.getDislike()))) {
+                    if (entry.getLike() - entry.getDislike() > bestIdea.getLike() - bestIdea.getDislike()) {
                         IdeaEntry bestIdea2 = bestIdea;
                         bestIdea = entry;
                         ideaBean.deleteIdea(bestIdea2.getId());
@@ -261,38 +257,19 @@ public class RoomViewServlet extends HttpServlet {
             }
         }
 
-        String idlike = request.getParameter("like");
-        if (idlike != null) {
-            idli = Long.parseLong(idlike);
+        String idea_id = request.getParameter("like");
+        String action = "like";
+        if (idea_id.isEmpty()) {
+            idea_id = request.getParameter("dislike");
+            action = "dislike";
         }
-        String iddislike = request.getParameter("dislike");
-        if (iddislike != null) {
-            iddi = Long.parseLong(iddislike);
-        }
-        String idrevert = request.getParameter("revert");
-        if (idrevert != null) {
-            idre = Long.parseLong(idrevert);
-        }
-        String iddelete = request.getParameter("delete");
-        if (iddelete != null) {
-            idde = Long.parseLong(iddelete);
+        if (idea_id.isEmpty()) {
+            idea_id = request.getParameter("remove");
+            action = "remove";
         }
 
-        if (idli != 0) {
-            ideaRatingBean.like(idli, request);
-            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
-        }
-        if (iddi != 0) {
-            ideaRatingBean.dislike(iddi);
-            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
-        }
-        if (idre != 0) {
-            ideaRatingBean.removeRating(idre);
-            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
-        }
-        if (idde != 0) {
-            ideaBean.deleteIdea(idde);
-            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
+        if (!idea_id.isEmpty()) {
+            ideaBean.performAction(idea_id, action);
         }
 
     }

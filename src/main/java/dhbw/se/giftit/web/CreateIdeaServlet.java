@@ -36,16 +36,16 @@ public class CreateIdeaServlet extends HttpServlet {
 
     @EJB
     IdeaBean ideaBean;
-    
+
     @EJB
     UserBean userBean;
-    
+
     @EJB
     RoomBean roombean;
-    
+
     @EJB
     ValidationBean validationBean;
-            
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,10 +53,10 @@ public class CreateIdeaServlet extends HttpServlet {
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/CreateIdea.jsp");
         dispatcher.forward(request, response);
-        
+
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
-        session.removeAttribute("Rform");  
+        session.removeAttribute("Rform");
         RoomViewServlet.warning = "";
     }
 
@@ -64,31 +64,30 @@ public class CreateIdeaServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-       
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String link = request.getParameter("link");
-        
+
         String price = request.getParameter("price");
-        String like = "0";
-        String dislike = "0";
+        int like = 0;
+        int dislike = 0;
         List<UserEntry> usersliked = new ArrayList<>();
         List<UserEntry> usersdisliked = new ArrayList<>();
         String uname = userBean.getUser().getUsername();
         long id = Long.parseLong(request.getParameter("id"));
         RoomEntry room = roombean.findRoom(id);
-        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, room, usersliked, usersdisliked, uname);
+        IdeaEntry idea = new IdeaEntry(like, dislike, name, price, description, link, room, uname);
         List<String> errors = this.validationBean.validate(idea);
 
         if (errors.isEmpty()) {
             // Keine Fehler: Raumansicht aufrufen
             this.ideaBean.CreateNewIdea(idea);
-            response.sendRedirect(request.getContextPath() +  "/secure/RoomView?id=" + id);
+            response.sendRedirect(request.getContextPath() + "/secure/RoomView?id=" + id);
         } else {
-           
+
             response.sendRedirect(request.getContextPath() + "/secure/CreateIdea?id=" + id);
         }
-        
+
     }
 }
