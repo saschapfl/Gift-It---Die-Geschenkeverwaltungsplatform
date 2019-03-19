@@ -178,7 +178,7 @@ public class RoomViewServlet extends HttpServlet {
                     if (votes.get(current_user.getUsername()).equals("like")) {
                         likeids = likeids + idea.getId();
                     } else {
-                        dislikeids = dislikeids + idea.getId();
+                        dislikeids = dislikeids + idea.getId() + ";";
                     }
                 }
             }
