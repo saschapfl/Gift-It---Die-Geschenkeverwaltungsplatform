@@ -65,6 +65,10 @@ public class IdeaBean {
                     if (votes.get(username).equals("like")) {
                         votes.remove(username);
                         idea.setLike(idea.getLike() - 1);
+                    } else {
+                        votes.put(username, "like");
+                        idea.setLike(idea.getLike() + 1);
+                        idea.setDislike(idea.getDislike() - 1);
                     }
                 } else {
                     votes.put(username, "like");
@@ -76,6 +80,10 @@ public class IdeaBean {
                     if (votes.get(username).equals("dislike")) {
                         votes.remove(username);
                         idea.setDislike(idea.getDislike() - 1);
+                    } else {
+                        votes.put(username, "dislike");
+                        idea.setLike(idea.getLike() - 1);
+                        idea.setDislike(idea.getDislike() + 1);
                     }
                 } else {
                     votes.put(username, "dislike");

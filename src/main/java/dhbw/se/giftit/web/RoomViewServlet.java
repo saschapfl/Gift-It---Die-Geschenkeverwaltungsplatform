@@ -168,6 +168,23 @@ public class RoomViewServlet extends HttpServlet {
             //Keyset der Map setzen um in der Teilnehmerliste User anzuzeigen, die bezahlt haben
             request.setAttribute("users_payed", room.getBudget().keySet());
 
+            //Zwei Listen ermitteln und setzen, die darüber informieren, welche Like/dislike buttons blau sein müssen
+            String likeids = "";
+            String dislikeids = "";
+            Map<String, String> votes = new HashMap<>();
+            for (IdeaEntry idea : room.getIdeas()) {
+                votes = idea.getVotes();
+                if (votes.keySet().contains(current_user.getUsername())) {
+                    if (votes.get(current_user.getUsername()).equals("like")) {
+                        likeids = likeids + idea.getId();
+                    } else {
+                        dislikeids = dislikeids + idea.getId();
+                    }
+                }
+            }
+            request.setAttribute("ideasLiked", likeids);
+            request.setAttribute("ideasDisliked", dislikeids);
+
             request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
 
         }
@@ -259,17 +276,18 @@ public class RoomViewServlet extends HttpServlet {
 
         String idea_id = request.getParameter("like");
         String action = "like";
-        if (idea_id.isEmpty()) {
+        if (idea_id == null) {
             idea_id = request.getParameter("dislike");
             action = "dislike";
         }
-        if (idea_id.isEmpty()) {
-            idea_id = request.getParameter("remove");
-            action = "remove";
+        if (idea_id == null) {
+            idea_id = request.getParameter("delete");
+            action = "delete";
         }
 
-        if (!idea_id.isEmpty()) {
+        if (idea_id != null) {
             ideaBean.performAction(idea_id, action);
+            response.sendRedirect(request.getRequestURI() + "?id=" + id);
         }
 
     }
