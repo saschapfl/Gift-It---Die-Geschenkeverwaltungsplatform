@@ -55,23 +55,35 @@ public class IdeaViewServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(request.getParameter("id"));
-        idea = ideaBean.findIdea(id);
+        IdeaEntry idea = ideaBean.findIdea(id);
+        if (idea == null) {
+            response.sendRedirect(request.getContextPath() + "/secure/Error?textId=3");
+        }
         long idr = idea.getRoom().getId();
 
         UserEntry user = userBean.getUser();
         String uname = user.getUsername();
+        boolean accessallowed = false;
 
-        HttpSession session = request.getSession();
-        session.setAttribute("idr", idr);
-        session.setAttribute("idea_name", idea.getName());
-        session.setAttribute("price", idea.getPrice());
-        session.setAttribute("link", idea.getLink());
-        session.setAttribute("description", idea.getDescription());
+        for (UserEntry userentry : idea.getRoom().getUsers()) {
+            if (userentry.getUsername().equals(uname)) {
+                accessallowed = true;
+            }
+        }
+        if (!accessallowed) {
+            response.sendRedirect(request.getContextPath() + "/secure/Error?textId=2");
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("idr", idr);
+            session.setAttribute("idea_name", idea.getName());
+            session.setAttribute("price", idea.getPrice());
+            session.setAttribute("link", idea.getLink());
+            session.setAttribute("description", idea.getDescription());
 
-        // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/IdeaView.jsp");
-        dispatcher.forward(request, response);
-
+            // Anfrage an dazugerhörige JSP weiterleiten
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Idea/IdeaView.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     @Override

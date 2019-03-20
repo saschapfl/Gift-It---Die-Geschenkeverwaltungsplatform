@@ -1,5 +1,8 @@
- .label {
-  display: block;
+body{
+    background-image: url("/giftit/images/roomview.jpg");
+}
+.label {
+    display: block;
     text-align: center;
 }
 .form-group{

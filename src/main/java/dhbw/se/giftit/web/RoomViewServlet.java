@@ -63,130 +63,134 @@ public class RoomViewServlet extends HttpServlet {
         long id = Long.parseLong(sid);
         RoomEntry room = this.roomBean.findRoom(id);
 
-        //Teilnehmer anzeigen
-        request.setAttribute("participants", room.getUsers());
-        UserEntry current_user = userbean.getUser();
-        if (!current_user.getRaeume().contains(room)) {
-            response.sendRedirect(request.getContextPath() + "/secure/RoomOverview?accessdenied=true");
+        //Wenn es Raum nicht gibt, Weiterleitung an Fehlerseite
+        if (room == null) {
+            response.sendRedirect(request.getContextPath() + "/secure/Error?textId=3");
         } else {
-            List<IdeaEntry> roomideas = room.getIdeas();
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
-
-            Date now = new Date();
-            Date date1 = room.getDeadlineCollection();
-            Date date2 = room.getDeadlineRating();
-            // Testdatum
-            Date date3 = null;
-            try {
-                date3 = format.parse("10.02.2019");
-            } catch (ParseException ex) {
-                Logger.getLogger(RoomViewServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            long diff1 = date1.getTime() - now.getTime();
-            long diff2 = date2.getTime() - now.getTime();
-
-            long days1 = diff1 / (1000 * 60 * 60 * 24) + 1;
-            long days2 = diff2 / (1000 * 60 * 60 * 24) + 1;
-
-            //Wenn DeadLineRating abgeschlossen nur noch beste Idea anzeigen
-            if (now.compareTo(date3) >= 0) {
-
-            }
-
-            //Unterschiedliche Fälle für die Weite der Timeline
-            if (days2 <= 0) {
-                // Nur noch die best bewertete Idee anzeigen
-                IdeaEntry bestIdea = roomideas.get(0);
-                for (IdeaEntry entry : roomideas) {
-                    if (entry.getLike() - entry.getDislike() > bestIdea.getLike() - bestIdea.getDislike()) {
-                        IdeaEntry bestIdea2 = bestIdea;
-                        bestIdea = entry;
-                        ideaBean.deleteIdea(bestIdea2.getId());
-                    }
-                }
-                roomideas.clear();
-                roomideas.add(bestIdea);
-                room.setIdeas(roomideas);
-                roomBean.updateRoom(room);
-                // Timeline anpassen
-                request.setAttribute("timeline1", "width: 100%;");
-                request.setAttribute("timeline2", "width: 100%;");
-                request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
-                request.setAttribute("timelinetext2", "Abstimmungsfrist erreicht");
-
-                //Check Symbol
-                request.setAttribute("deadline1check", "true");
-                request.setAttribute("deadline2check", "true");
-            } else if (days1 <= 0) {
-                request.setAttribute("timeline1", "width: 100%;");
-                request.setAttribute("timeline2", "width: " + (100 - days2) + "%;");
-                if (days2 > 100) {
-                    request.setAttribute("timeline2", "width: 0%");
-                }
-                request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
-                request.setAttribute("timelinetext2", "Noch " + days2 + " Tage");
-
-                //Check Symbol
-                request.setAttribute("deadline1check", "true");
+            //Teilnehmer anzeigen
+            request.setAttribute("participants", room.getUsers());
+            UserEntry current_user = userbean.getUser();
+            if (!current_user.getRaeume().contains(room)) {
+                response.sendRedirect(request.getContextPath() + "/secure/Error?textId=1");
             } else {
-                request.setAttribute("timeline1", "width: " + (100 - days1) + "%;");
-                request.setAttribute("timeline2", "width: 0%");
-                if (days1 > 100) {
-                    request.setAttribute("timeline1", "width: 0%");
+                List<IdeaEntry> roomideas = room.getIdeas();
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+
+                Date now = new Date();
+                Date date1 = room.getDeadlineCollection();
+                Date date2 = room.getDeadlineRating();
+                // Testdatum
+                Date date3 = null;
+                try {
+                    date3 = format.parse("10.02.2019");
+                } catch (ParseException ex) {
+                    Logger.getLogger(RoomViewServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                request.setAttribute("timelinetext1", "Noch " + days1 + " Tage");
-                request.setAttribute("timelinetext2", "");
-            }
 
-            request.setAttribute("deadline1", format.format(date1));
-            request.setAttribute("deadline2", format.format(date2));
-            // Session holen und Ideas an jsp weiterleiten
-            HttpSession session = request.getSession();
-            session.setAttribute("entries", roomideas);
+                long diff1 = date1.getTime() - now.getTime();
+                long diff2 = date2.getTime() - now.getTime();
 
-            //Teilnehmerverwaltung für den Ersteller aktivieren, für alle anderen deaktivieren
-            if (current_user.getUsername().equals(room.getUsers().get(0).getUsername())) {
-                String a = "true";
-                request.setAttribute("owner", a);
-            }
-            session.setAttribute("id", id);
+                long days1 = diff1 / (1000 * 60 * 60 * 24) + 1;
+                long days2 = diff2 / (1000 * 60 * 60 * 24) + 1;
 
-            //Gesamtbudget ermitteln und anzeigen
-            double budget = room.getEntireBudget();
-            request.setAttribute("budget", budget);
+                //Wenn DeadLineRating abgeschlossen nur noch beste Idea anzeigen
+                if (now.compareTo(date3) >= 0) {
 
-            //Userbudget ermitteln und anzeigen
-            double user_budget = 0.0;
-            if (room.getBudget().keySet().contains(current_user.getUsername())) {
-                user_budget = room.getBudget().get(current_user.getUsername());
-            }
-            //Als Session-Attribut, da durch die Post Anfrage des Budget hinzufügen Buttons
-            //der Request-Parameter nicht gespeichert bleibt
-            request.setAttribute("user_budget", user_budget);
+                }
 
-            //Keyset der Map setzen um in der Teilnehmerliste User anzuzeigen, die bezahlt haben
-            request.setAttribute("users_payed", room.getBudget().keySet());
+                //Unterschiedliche Fälle für die Weite der Timeline
+                if (days2 <= 0) {
+                    // Nur noch die best bewertete Idee anzeigen
+                    IdeaEntry bestIdea = roomideas.get(0);
+                    for (IdeaEntry entry : roomideas) {
+                        if (entry.getLike() - entry.getDislike() > bestIdea.getLike() - bestIdea.getDislike()) {
+                            IdeaEntry bestIdea2 = bestIdea;
+                            bestIdea = entry;
+                            ideaBean.deleteIdea(bestIdea2.getId());
+                        }
+                    }
+                    roomideas.clear();
+                    roomideas.add(bestIdea);
+                    room.setIdeas(roomideas);
+                    roomBean.updateRoom(room);
+                    // Timeline anpassen
+                    request.setAttribute("timeline1", "width: 100%;");
+                    request.setAttribute("timeline2", "width: 100%;");
+                    request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
+                    request.setAttribute("timelinetext2", "Abstimmungsfrist erreicht");
 
-            //Zwei Listen ermitteln und setzen, die darüber informieren, welche Like/dislike buttons blau sein müssen
-            String likeids = "";
-            String dislikeids = "";
-            Map<String, String> votes = new HashMap<>();
-            for (IdeaEntry idea : room.getIdeas()) {
-                votes = idea.getVotes();
-                if (votes.keySet().contains(current_user.getUsername())) {
-                    if (votes.get(current_user.getUsername()).equals("like")) {
-                        likeids = likeids + idea.getId();
-                    } else {
-                        dislikeids = dislikeids + idea.getId() + ";";
+                    //Check Symbol
+                    request.setAttribute("deadline1check", "true");
+                    request.setAttribute("deadline2check", "true");
+                } else if (days1 <= 0) {
+                    request.setAttribute("timeline1", "width: 100%;");
+                    request.setAttribute("timeline2", "width: " + (100 - days2) + "%;");
+                    if (days2 > 100) {
+                        request.setAttribute("timeline2", "width: 0%");
+                    }
+                    request.setAttribute("timelinetext1", "Sammlungsfrist erreicht");
+                    request.setAttribute("timelinetext2", "Noch " + days2 + " Tage");
+
+                    //Check Symbol
+                    request.setAttribute("deadline1check", "true");
+                } else {
+                    request.setAttribute("timeline1", "width: " + (100 - days1) + "%;");
+                    request.setAttribute("timeline2", "width: 0%");
+                    if (days1 > 100) {
+                        request.setAttribute("timeline1", "width: 0%");
+                    }
+                    request.setAttribute("timelinetext1", "Noch " + days1 + " Tage");
+                    request.setAttribute("timelinetext2", "");
+                }
+
+                request.setAttribute("deadline1", format.format(date1));
+                request.setAttribute("deadline2", format.format(date2));
+                // Session holen und Ideas an jsp weiterleiten
+                HttpSession session = request.getSession();
+                session.setAttribute("entries", roomideas);
+
+                //Teilnehmerverwaltung für den Ersteller aktivieren, für alle anderen deaktivieren
+                if (current_user.getUsername().equals(room.getUsers().get(0).getUsername())) {
+                    String a = "true";
+                    request.setAttribute("owner", a);
+                }
+                session.setAttribute("id", id);
+
+                //Gesamtbudget ermitteln und anzeigen
+                double budget = room.getEntireBudget();
+                request.setAttribute("budget", budget);
+
+                //Userbudget ermitteln und anzeigen
+                double user_budget = 0.0;
+                if (room.getBudget().keySet().contains(current_user.getUsername())) {
+                    user_budget = room.getBudget().get(current_user.getUsername());
+                }
+                //Als Session-Attribut, da durch die Post Anfrage des Budget hinzufügen Buttons
+                //der Request-Parameter nicht gespeichert bleibt
+                request.setAttribute("user_budget", user_budget);
+
+                //Keyset der Map setzen um in der Teilnehmerliste User anzuzeigen, die bezahlt haben
+                request.setAttribute("users_payed", room.getBudget().keySet());
+
+                //Zwei Listen ermitteln und setzen, die darüber informieren, welche Like/dislike buttons blau sein müssen
+                String likeids = "";
+                String dislikeids = "";
+                Map<String, String> votes = new HashMap<>();
+                for (IdeaEntry idea : room.getIdeas()) {
+                    votes = idea.getVotes();
+                    if (votes.keySet().contains(current_user.getUsername())) {
+                        if (votes.get(current_user.getUsername()).equals("like")) {
+                            likeids = likeids + idea.getId();
+                        } else {
+                            dislikeids = dislikeids + idea.getId() + ";";
+                        }
                     }
                 }
+                request.setAttribute("ideasLiked", likeids);
+                request.setAttribute("ideasDisliked", dislikeids);
+
+                request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
             }
-            request.setAttribute("ideasLiked", likeids);
-            request.setAttribute("ideasDisliked", dislikeids);
-
-            request.getRequestDispatcher("/WEB-INF/Room/RoomView.jsp").forward(request, response);
-
         }
 
     }
