@@ -25,6 +25,13 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <p class="ml-4">${text}</p>
+        <c:choose>
+            <c:when test="${text == 'Sie haben keine Berechtigung auf diesen Raum!' or text == 'Sie haben keine Berechtigung auf diese Idee!'}">
+                <p class="ml-4">${text}&nbsp;&nbsp;<i class="fa fa-lock" aria-hidden="true"></i></p>
+                </c:when>
+                <c:otherwise>
+                <p class="ml-4">${text}&nbsp;&nbsp;<i class="fa fa-frown-o" aria-hidden="true"></i></p>
+            </c:otherwise>
+        </c:choose>
     </jsp:attribute>
 </template:base>

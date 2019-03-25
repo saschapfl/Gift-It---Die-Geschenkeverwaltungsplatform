@@ -7,7 +7,7 @@ package dhbw.se.giftit.web;
 
 import dhbw.se.giftit.ejb.UserBean;
 import dhbw.se.giftit.ejb.ValidationBean;
-import dhbw.se.giftit.exc.UserExsists;
+import dhbw.se.giftit.exc.UserExsistsException;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.io.IOException;
 import java.util.List;
@@ -73,7 +73,7 @@ public class SignUpServlet extends HttpServlet {
         if (errors.isEmpty()) {
             try {
                 this.userBean.registerUser(user);
-            } catch (UserExsists ue) {
+            } catch (UserExsistsException ue) {
                 errors.add(ue.getMessage());
             }
         }

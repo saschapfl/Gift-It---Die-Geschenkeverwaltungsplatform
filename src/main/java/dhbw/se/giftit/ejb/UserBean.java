@@ -5,7 +5,7 @@
  */
 package dhbw.se.giftit.ejb;
 
-import dhbw.se.giftit.exc.UserExsists;
+import dhbw.se.giftit.exc.UserExsistsException;
 import dhbw.se.giftit.jpa.UserEntry;
 import java.util.List;
 import javax.annotation.Resource;
@@ -34,9 +34,9 @@ public class UserBean {
     
     //<editor-fold defaultstate="collapsed" desc="registrieren">
     // aktuellen User registrieren
-    public void registerUser(UserEntry user) throws UserExsists {
+    public void registerUser(UserEntry user) throws UserExsistsException {
         if(entityManager.find(UserEntry.class, user.getUsername()) != null) {
-            throw new UserExsists("Der Benutzer ist bereits vorhanden!");
+            throw new UserExsistsException("Der Benutzer ist bereits vorhanden!");
         }
         else {
             user.addToGroup("giftit-secure");
