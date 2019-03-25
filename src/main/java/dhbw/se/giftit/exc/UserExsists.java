@@ -9,9 +9,9 @@ package dhbw.se.giftit.exc;
  *
  * @author sven
  */
-public class UserExsistsException extends Exception{
+public class UserExsists extends Exception{
     
-    public UserExsistsException(String message) {
+    public UserExsists(String message) {
         super(message);
     }
 }

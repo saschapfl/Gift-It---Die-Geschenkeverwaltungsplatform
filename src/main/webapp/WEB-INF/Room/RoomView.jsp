@@ -184,6 +184,7 @@
                                     </form>
                                     <%--    </c:if> --%>
                                 </div>
+                                <small class="text-muted"> ${error} </small>
 
                                 <form method="post">
                                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -210,8 +211,7 @@
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
-                <%-- Modal für löschen vom Raum --%>
-
+                <%-- Modal für löschen --%>
                 <%-- Modal ende --%>
             </jsp:attribute>
         </template:base>
