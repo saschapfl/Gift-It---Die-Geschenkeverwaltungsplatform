@@ -165,24 +165,24 @@
                                     <a class="card-text"href ="<c:url value = "/secure/IdeaView?id=${entry.id}"/>">${entry.description}</a>
                                 </div>
                                 <div class="card-footer row mr-0 ml-0">
-                                    <%--    <c:if test = "${deadline1check && !deadline2check}"> --%>
-                                    <form method="post">
-                                        <c:choose>
-                                            <c:when test = "${fn:contains(ideasLiked, entry.id)}">
-                                                <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up" style = "color: blue;"></i></button></small>
-                                                <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></i></button></small>
-                                                    </c:when>
-                                                    <c:when test = "${fn:contains(ideasDisliked, entry.id)}">
-                                                <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></i></button></small>
-                                                <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down" style = "color: blue;"></i></button></small>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></i></button></small>
-                                                <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></i></button></small>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                    </form>
-                                    <%--    </c:if> --%>
+                                    <c:if test = "${deadline1check && !deadline2check}">
+                                        <form method="post">
+                                            <c:choose>
+                                                <c:when test = "${fn:contains(ideasLiked, entry.id)}">
+                                                    <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up" style = "color: blue;"></i></button></small>
+                                                    <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></i></button></small>
+                                                        </c:when>
+                                                        <c:when test = "${fn:contains(ideasDisliked, entry.id)}">
+                                                    <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></i></button></small>
+                                                    <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down" style = "color: blue;"></i></button></small>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                    <small class="text-muted"><a>${entry.like}</a>&nbsp;<button type="submit" name="like" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-up"></i></button></small>
+                                                    <small class="text-muted"><a>${entry.dislike}</a>&nbsp;<button type="submit" name="dislike" value="${entry.id}" class="btn btn-light btn-sm"> <i class="fa fa-thumbs-down"></i></button></small>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                        </form>
+                                    </c:if> 
                                 </div>
                                 <small class="text-muted"> ${error} </small>
 
