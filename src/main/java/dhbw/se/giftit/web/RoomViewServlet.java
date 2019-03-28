@@ -93,10 +93,6 @@ public class RoomViewServlet extends HttpServlet {
                 long days1 = diff1 / (1000 * 60 * 60 * 24) + 1;
                 long days2 = diff2 / (1000 * 60 * 60 * 24) + 1;
 
-                //Wenn DeadLineRating abgeschlossen nur noch beste Idea anzeigen
-                if (now.compareTo(date3) >= 0) {
-
-                }
 
                 //Unterschiedliche Fälle für die Weite der Timeline
                 if (days2 <= 0) {
@@ -180,7 +176,7 @@ public class RoomViewServlet extends HttpServlet {
                     votes = idea.getVotes();
                     if (votes.keySet().contains(current_user.getUsername())) {
                         if (votes.get(current_user.getUsername()).equals("like")) {
-                            likeids = likeids + idea.getId();
+                            likeids = likeids + idea.getId() + ";";
                         } else {
                             dislikeids = dislikeids + idea.getId() + ";";
                         }
@@ -200,14 +196,6 @@ public class RoomViewServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        // id für likes als Long
-        long idli = 0;
-        // id für dislikes als Long
-        long iddi = 0;
-        // id für Bewertung ändern als Long
-        long idre = 0;
-        // id für löschen als Long
-        long idde = 0;
         warning = "";
         String buttonname = request.getParameter("button");
         UserEntry user = userbean.getUserByUname(buttonname);

@@ -73,7 +73,78 @@ body {
     text-decoration: none;
 }
 
-.test {
-    width: 0px;
-    height: 0px;
+button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  font-size: 12px;
 }
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+btn{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  font-size: 12px;
+}
+btn:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+btn:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+btn:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
