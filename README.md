@@ -1,4 +1,2 @@
-# Gift-It---Die-Geschenkeverwaltungsplatform
-Platform zur Abstimmung von Gruppengeschenken
-
-MEGAAAA GEIL
+# Gift-It---Die-Geschenkeverwaltungsplattform
+Plattform zur Abstimmung von Gruppengeschenken
