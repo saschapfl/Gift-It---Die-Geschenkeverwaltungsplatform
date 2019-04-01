@@ -250,18 +250,20 @@ public class RoomViewServlet extends HttpServlet {
                     warning = "Sie können sich selbst nicht aus dem Raum entfernen! Um den Raum zu löschen benutzen Sie bitte den Button 'Raum löschen'";
                     response.sendRedirect(request.getRequestURI() + "?id=" + id);
                 } else {
-                    UserEntry deleted_user = null;
+                    Map<String, Double> budget = room.getBudget();
+                    UserEntry userToRemove = null;
                     for (UserEntry ue : users) {
                         if (ue.getUsername().equals(user.getUsername())) {
-                            deleted_user = ue;
+                            userToRemove = ue;
                         }
                     }
-                    Map<String, Double> budget = room.getBudget();
-                    double budget_of_user = budget.get(deleted_user.getUsername());
-                    room.setEntireBudget(room.getEntireBudget() - budget_of_user);
-                    budget.remove(user.getUsername());
-                    room.setBudget((HashMap<String, Double>) budget);
-                    users.remove(deleted_user);
+                    if (budget.containsKey(userToRemove.getUsername())) {
+                        double budget_of_user = budget.get(userToRemove.getUsername());
+                        room.setEntireBudget(room.getEntireBudget() - budget_of_user);
+                        budget.remove(userToRemove.getUsername());
+                        room.setBudget((HashMap<String, Double>) budget);
+                    }
+                    users.remove(userToRemove);
                     room.setUsers(users);
                     roomBean.updateRoom(room);
 

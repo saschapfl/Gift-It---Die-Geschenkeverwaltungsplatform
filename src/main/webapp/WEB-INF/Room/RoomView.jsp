@@ -43,7 +43,7 @@
     <jsp:attribute name="content">
 
         <div class ="container w-80 mt-2 p-0 d-flex" id = "timeline">
-            <button type="button" class="ghost_btn button" data-toggle="modal" data-target="#exampleModal" data-whatever="@money">Aktuelles Budget: ${budget}€</button>
+            <button type="button" class="ghost_btn button" data-toggle="modal" data-target="#exampleModal" data-whatever="@money" style="height: 100%;">Aktuelles Budget: ${budget}€</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" height: 65%;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -182,7 +182,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                         </form>
-                                    </c:if> 
+                                    </c:if>
                                 </div>
                                 <small class="text-muted"> ${error} </small>
 
