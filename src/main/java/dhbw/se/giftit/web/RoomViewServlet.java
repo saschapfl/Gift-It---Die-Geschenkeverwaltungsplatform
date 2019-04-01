@@ -93,7 +93,6 @@ public class RoomViewServlet extends HttpServlet {
                 long days1 = diff1 / (1000 * 60 * 60 * 24) + 1;
                 long days2 = diff2 / (1000 * 60 * 60 * 24) + 1;
 
-
                 //Unterschiedliche Fälle für die Weite der Timeline
                 if (days2 <= 0) {
                     // Nur noch die best bewertete Idee anzeigen
@@ -257,6 +256,11 @@ public class RoomViewServlet extends HttpServlet {
                             deleted_user = ue;
                         }
                     }
+                    Map<String, Double> budget = room.getBudget();
+                    double budget_of_user = budget.get(deleted_user.getUsername());
+                    room.setEntireBudget(room.getEntireBudget() - budget_of_user);
+                    budget.remove(user.getUsername());
+                    room.setBudget((HashMap<String, Double>) budget);
                     users.remove(deleted_user);
                     room.setUsers(users);
                     roomBean.updateRoom(room);
