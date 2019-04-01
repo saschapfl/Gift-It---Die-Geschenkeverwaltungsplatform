@@ -44,7 +44,7 @@
 
         <div class ="container w-80 mt-2 p-0 d-flex" id = "timeline">
             <button type="button" class="ghost_btn button" data-toggle="modal" data-target="#exampleModal" data-whatever="@money">Aktuelles Budget: ${budget}€</button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" height: 65%;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
