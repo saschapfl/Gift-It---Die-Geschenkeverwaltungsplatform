@@ -56,6 +56,8 @@ public class IdeaViewServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(request.getParameter("id"));
         IdeaEntry idea = ideaBean.findIdea(id);
+        
+        //falls keine Idee vorhanden ist wird auf die Errorseite weitergeleitet ansonsten wird sich die ID des Raums und der User geholt
         if (idea == null) {
             response.sendRedirect(request.getContextPath() + "/secure/Error?textId=3");
         } else {
@@ -64,7 +66,8 @@ public class IdeaViewServlet extends HttpServlet {
             UserEntry user = userBean.getUser();
             String uname = user.getUsername();
             boolean accessallowed = false;
-
+            
+            //es werden sich alle User zu dem Raum geholt und abgefragt ob sie auf den Raum zugriff besitzen wenn nicht werden sie auf die Errorseite weitergeleitet
             for (UserEntry userentry : idea.getRoom().getUsers()) {
                 if (userentry.getUsername().equals(uname)) {
                     accessallowed = true;
@@ -97,6 +100,7 @@ public class IdeaViewServlet extends HttpServlet {
         String button = request.getParameter("button");
         long id = Long.parseLong(request.getParameter("id"));
 
+        //falls der Delete Button gedrückt wurde wird die Idee gelöscht mithilfe der Methode "deleteIdea" und es wird weitergeleitet auf die Raumübersichtsseite
         switch (button) {
             case "deleteIdea":
                 ideaBean.deleteIdea(Long.parseLong(request.getParameter("id")));
